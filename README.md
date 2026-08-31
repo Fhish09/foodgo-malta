@@ -1,18 +1,24 @@
 # FoodGo Malta
 
-Premium dark elegant food delivery web app for the Malta market.
+Premium food delivery platform for Malta.
 
-**Repo:** https://github.com/Fhish09/foodgo-malta
+## Frontend
 
-Built step-by-step to keep commits small and reliable.
+Open `index.html` with Live Server (or any static server).
 
-## How to run
+Images required next to `index.html`:
+- `hero.jpg` — hero dish
+- `about-chef.jpg` — About section chef
 
-1. Clone the repo
-2. Open `index.html` in your browser (or use Live Server in VS Code)
+## Backend API
 
-## Demo accounts (coming soon)
+```bash
+cd backend
+npm install
+npm run seed
+npm run dev
+```
 
-- customer@demo.com / demo123
-- owner@demo.com / demo123
-- admin@demo.com / demo123
+API runs at **http://localhost:4000**
+
+See `backend/README.md` for endpoints and demo accounts.
