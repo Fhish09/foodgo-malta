@@ -53,29 +53,30 @@
       font-family: 'Inter', sans-serif;
     }
 
+    /* HERO - text first, smaller elegant dish image */
     .hero {
-      min-height: 100vh; display: flex; flex-direction: column;
-      justify-content: center; padding: 100px 24px 48px;
-      position: relative; overflow: hidden;
+      padding: 100px 24px 40px;
+      position: relative;
+      overflow: hidden;
     }
     .hero-glow {
-      position: absolute; width: 320px; height: 320px; border-radius: 50%;
-      background: var(--gold); opacity: 0.12; filter: blur(80px);
-      top: 20%; right: -40px; pointer-events: none;
+      position: absolute; width: 280px; height: 280px; border-radius: 50%;
+      background: var(--gold); opacity: 0.1; filter: blur(70px);
+      top: 15%; right: -30px; pointer-events: none;
       animation: glowPulse 5s ease-in-out infinite;
     }
     @keyframes glowPulse {
-      0%, 100% { opacity: 0.12; transform: scale(1); }
-      50% { opacity: 0.2; transform: scale(1.08); }
+      0%, 100% { opacity: 0.1; transform: scale(1); }
+      50% { opacity: 0.18; transform: scale(1.06); }
     }
     .hero-eyebrow {
       font-family: 'Petit Formal Script', cursive; color: var(--gold);
-      font-size: 1.15rem; margin-bottom: 14px;
+      font-size: 1.1rem; margin-bottom: 12px;
       opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
     }
     .hero h1 {
-      font-size: clamp(2.2rem, 7vw, 3.2rem); line-height: 1.1;
-      letter-spacing: -0.02em; margin-bottom: 16px;
+      font-size: clamp(2rem, 6.5vw, 2.8rem); line-height: 1.12;
+      letter-spacing: -0.02em; margin-bottom: 14px;
       opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
     }
     .hero h1 .gold-line {
@@ -83,86 +84,101 @@
       -webkit-text-fill-color: transparent; background-clip: text;
     }
     .hero-sub {
-      font-size: 0.95rem; color: var(--text-body); line-height: 1.65;
-      max-width: 340px; margin-bottom: 28px;
+      font-size: 0.92rem; color: var(--text-body); line-height: 1.65;
+      max-width: 320px; margin-bottom: 24px;
       opacity: 0; animation: fadeUp 0.7s ease 0.3s forwards;
     }
     .hero-btns {
-      display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px;
+      display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px;
       opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
     }
     .btn-solid {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--gold); color: #14100C; border: none;
-      padding: 13px 24px; border-radius: 999px;
-      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      padding: 12px 22px; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
       transition: all 0.25s; font-family: 'Inter', sans-serif;
     }
     .btn-solid:hover { background: var(--gold-light); transform: scale(1.02); }
     .btn-outline {
       display: inline-flex; align-items: center; gap: 8px;
       background: transparent; color: var(--text);
-      border: 1px solid var(--gold); padding: 12px 22px;
-      border-radius: 999px; font-size: 0.82rem; font-weight: 500;
+      border: 1px solid var(--gold); padding: 11px 20px;
+      border-radius: 999px; font-size: 0.8rem; font-weight: 500;
       cursor: pointer; transition: all 0.25s; font-family: 'Inter', sans-serif;
     }
     .btn-outline:hover { background: rgba(201,151,90,0.08); }
     .hero-divider {
-      height: 1px; background: var(--border-soft); margin-bottom: 24px;
-      max-width: 280px; opacity: 0; animation: fadeUp 0.7s ease 0.5s forwards;
+      height: 1px; background: var(--border-soft); margin-bottom: 20px;
+      max-width: 260px; opacity: 0; animation: fadeUp 0.7s ease 0.5s forwards;
     }
     .trust-row {
-      display: flex; flex-wrap: wrap; gap: 20px;
+      display: flex; flex-wrap: wrap; gap: 16px 20px;
       opacity: 0; animation: fadeUp 0.7s ease 0.55s forwards;
     }
     .trust-item { display: flex; align-items: center; gap: 10px; }
     .trust-icon {
-      width: 36px; height: 36px; border-radius: 50%;
+      width: 34px; height: 34px; border-radius: 50%;
       background: var(--icon-bg); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .trust-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
-    .trust-label { font-size: 0.78rem; font-weight: 600; color: var(--text); line-height: 1.25; }
-    .trust-sub { font-size: 0.68rem; color: var(--text-muted); }
+    .trust-icon svg { width: 15px; height: 15px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+    .trust-label { font-size: 0.76rem; font-weight: 600; color: var(--text); line-height: 1.25; }
+    .trust-sub { font-size: 0.66rem; color: var(--text-muted); }
+
+    /* Smaller, elegant dish photo - NOT full-width banner */
     .hero-img-wrap {
-      margin-top: 32px; position: relative; border-radius: 12px;
-      overflow: hidden; height: 260px;
-      opacity: 0; animation: fadeUp 0.8s ease 0.35s forwards;
+      margin-top: 28px;
+      width: 100%;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.35s forwards;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
     }
-    .hero-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
     .hero-img-wrap::after {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(18,13,10,0.6) 100%);
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(18,13,10,0.35) 100%);
+      pointer-events: none;
     }
     .steam {
-      position: absolute; width: 60px; height: 80px; top: 20%; left: 45%;
-      background: linear-gradient(to top, transparent, rgba(255,255,255,0.25));
-      border-radius: 50%; filter: blur(8px);
+      position: absolute; width: 40px; height: 50px; top: 18%; left: 42%;
+      background: linear-gradient(to top, transparent, rgba(255,255,255,0.22));
+      border-radius: 50%; filter: blur(6px);
       animation: steamRise 5s ease-in-out infinite; pointer-events: none;
     }
     @keyframes steamRise {
-      0%, 100% { opacity: 0; transform: translateY(10px) scaleY(0.8); }
-      40% { opacity: 0.5; }
-      70% { opacity: 0.15; transform: translateY(-30px) scaleY(1.2); }
+      0%, 100% { opacity: 0; transform: translateY(8px) scaleY(0.8); }
+      40% { opacity: 0.45; }
+      70% { opacity: 0.12; transform: translateY(-24px) scaleY(1.15); }
     }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .about { background: var(--bg-panel); padding: 56px 24px; }
     .about-img {
-      height: 240px; border-radius: 10px;
+      height: 200px; border-radius: 10px;
       background-size: cover; background-position: center; margin-bottom: 28px;
     }
     .about-eyebrow {
       font-family: 'Petit Formal Script', cursive;
       color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;
     }
-    .about h2 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 14px; }
+    .about h2 { font-size: 1.75rem; line-height: 1.2; margin-bottom: 14px; }
     .about h2 .gold { color: var(--gold); }
     .about-text {
-      font-size: 0.92rem; color: var(--text-body); line-height: 1.65; margin-bottom: 24px;
+      font-size: 0.9rem; color: var(--text-body); line-height: 1.65; margin-bottom: 24px;
     }
     .checklist { margin-bottom: 28px; }
     .check-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
@@ -180,7 +196,7 @@
       font-family: 'Petit Formal Script', cursive;
       color: var(--gold); font-size: 1.1rem; margin-bottom: 8px;
     }
-    .picks-header h2 { font-size: 1.8rem; margin-bottom: 10px; }
+    .picks-header h2 { font-size: 1.75rem; margin-bottom: 10px; }
     .picks-underline { width: 48px; height: 2px; background: var(--gold); margin: 0 auto; }
     .picks-track-wrap { position: relative; padding: 0 16px; }
     .picks-track {
@@ -216,19 +232,14 @@
     .pick-cart svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 2; }
     .picks-cta { text-align: center; margin-top: 24px; }
 
-    /* ===== TRUST STRIP ===== */
     .trust-strip {
       background: var(--bg-panel);
       border-top: 1px solid var(--border-soft);
       border-bottom: 1px solid var(--border-soft);
       padding: 36px 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px 16px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px;
     }
-    .strip-item {
-      display: flex; align-items: flex-start; gap: 12px;
-    }
+    .strip-item { display: flex; align-items: flex-start; gap: 12px; }
     .strip-icon {
       width: 44px; height: 44px; border-radius: 50%;
       background: var(--icon-bg); border: 1px solid var(--border);
@@ -238,29 +249,20 @@
     .strip-label { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
     .strip-sub { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
 
-    /* ===== FOOTER ===== */
     footer {
       background: var(--bg);
       border-top: 1px solid var(--border-soft);
       padding: 56px 24px 32px;
     }
-    .footer-grid {
-      display: grid;
-      gap: 36px;
-      margin-bottom: 40px;
-    }
+    .footer-grid { display: grid; gap: 36px; margin-bottom: 40px; }
     .footer-col h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; color: var(--gold);
-      margin-bottom: 16px; font-weight: 600;
+      font-size: 1.15rem; color: var(--gold); margin-bottom: 16px; font-weight: 600;
     }
     .footer-col p {
-      font-size: 0.85rem; color: var(--text-body); line-height: 1.6;
-      margin-bottom: 16px;
+      font-size: 0.85rem; color: var(--text-body); line-height: 1.6; margin-bottom: 16px;
     }
-    .newsletter {
-      display: flex; gap: 8px; margin-bottom: 18px;
-    }
+    .newsletter { display: flex; gap: 8px; margin-bottom: 18px; }
     .newsletter input {
       flex: 1; padding: 11px 14px;
       background: var(--bg-card); border: 1px solid var(--border);
@@ -272,25 +274,20 @@
     .newsletter button {
       width: 42px; height: 42px; border-radius: 50%;
       background: var(--gold); border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .newsletter button svg { width: 16px; height: 16px; stroke: #14100C; fill: none; stroke-width: 2.2; }
     .social-row { display: flex; gap: 10px; }
     .social-btn {
       width: 36px; height: 36px; border-radius: 50%;
       border: 1px solid var(--border); background: transparent;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: border-color 0.2s;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
     .social-btn:hover { border-color: var(--gold); }
     .social-btn svg { width: 15px; height: 15px; stroke: var(--gold); fill: none; stroke-width: 1.6; }
     .footer-links { list-style: none; }
     .footer-links li { margin-bottom: 10px; }
-    .footer-links a {
-      font-size: 0.85rem; color: var(--text-body);
-      transition: color 0.2s;
-    }
+    .footer-links a { font-size: 0.85rem; color: var(--text-body); transition: color 0.2s; }
     .footer-links a:hover { color: var(--gold); }
     .contact-row {
       display: flex; align-items: flex-start; gap: 10px;
@@ -302,9 +299,7 @@
     }
     .footer-bottom {
       border-top: 1px solid var(--border-soft);
-      padding-top: 20px;
-      font-size: 0.78rem; color: var(--text-muted);
-      text-align: center;
+      padding-top: 20px; font-size: 0.78rem; color: var(--text-muted); text-align: center;
     }
   </style>
 </head>
@@ -338,8 +333,9 @@
         <div><div class="trust-label">Secure Payment</div><div class="trust-sub">100% safe</div></div>
       </div>
     </div>
+    <!-- Smaller elegant square dish photo -->
     <div class="hero-img-wrap">
-      <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&h=700&fit=crop&q=85" alt="Signature pasta" />
+      <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=500&h=500&fit=crop&q=85" alt="Signature pasta" />
       <div class="steam"></div>
     </div>
   </section>
@@ -405,39 +401,25 @@
     </div>
   </section>
 
-  <!-- TRUST STRIP -->
   <section class="trust-strip">
     <div class="strip-item">
       <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-      <div>
-        <div class="strip-label">Free Delivery</div>
-        <div class="strip-sub">On orders above EUR 25</div>
-      </div>
+      <div><div class="strip-label">Free Delivery</div><div class="strip-sub">On orders above EUR 25</div></div>
     </div>
     <div class="strip-item">
       <div class="strip-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-      <div>
-        <div class="strip-label">Fresh & Fast</div>
-        <div class="strip-sub">Prepared with care</div>
-      </div>
+      <div><div class="strip-label">Fresh & Fast</div><div class="strip-sub">Prepared with care</div></div>
     </div>
     <div class="strip-item">
       <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div>
-        <div class="strip-label">Secure Payment</div>
-        <div class="strip-sub">100% safe & secure</div>
-      </div>
+      <div><div class="strip-label">Secure Payment</div><div class="strip-sub">100% safe & secure</div></div>
     </div>
     <div class="strip-item">
       <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
-      <div>
-        <div class="strip-label">Loyalty Rewards</div>
-        <div class="strip-sub">Earn points every order</div>
-      </div>
+      <div><div class="strip-label">Loyalty Rewards</div><div class="strip-sub">Earn points every order</div></div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-grid">
       <div class="footer-col">
@@ -473,23 +455,12 @@
       </div>
       <div class="footer-col">
         <h3>Contact Us</h3>
-        <div class="contact-row">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          <span>+356 2123 4567</span>
-        </div>
-        <div class="contact-row">
-          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
-          <span>hello@foodgo.mt</span>
-        </div>
-        <div class="contact-row">
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <span>Valletta, Malta</span>
-        </div>
+        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>+356 2123 4567</span></div>
+        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>hello@foodgo.mt</span></div>
+        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Valletta, Malta</span></div>
       </div>
     </div>
-    <div class="footer-bottom">
-      &copy; 2026 FoodGo Malta. All rights reserved.
-    </div>
+    <div class="footer-bottom">&copy; 2026 FoodGo Malta. All rights reserved.</div>
   </footer>
 </body>
 </html>
