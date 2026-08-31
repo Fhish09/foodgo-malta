@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>FoodGo Malta | Lazzu Go</title>
+  <title>FoodGo Malta</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -39,7 +39,6 @@
     .hidden { display: none !important; }
     .container { max-width: 480px; margin: 0 auto; padding: 0 18px; }
 
-    /* Header */
     header {
       position: sticky; top: 0; z-index: 100;
       background: rgba(12,12,12,0.92);
@@ -59,9 +58,10 @@
       background: var(--bg-card); border: 1px solid var(--border);
       color: var(--text); width: 40px; height: 40px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 1.05rem; position: relative; transition: all 0.25s;
+      cursor: pointer; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.3px;
+      position: relative; transition: all 0.25s; text-transform: uppercase;
     }
-    .icon-btn:hover { border-color: var(--gold); box-shadow: var(--glow); }
+    .icon-btn:hover { border-color: var(--gold); box-shadow: var(--glow); color: var(--gold); }
     .cart-badge {
       position: absolute; top: -3px; right: -3px;
       background: var(--gold); color: #0c0c0c;
@@ -70,7 +70,98 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-    /* Bottom Nav */
+    .hero { position: relative; height: 300px; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: brightness(0.5);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(12,12,12,0.97) 0%, rgba(12,12,12,0.4) 55%, transparent 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; height: 100%;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 24px 20px;
+    }
+    .hero-tag {
+      font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px; font-weight: 500;
+    }
+    .hero h1 { font-size: 2rem; line-height: 1.15; margin-bottom: 10px; max-width: 280px; }
+    .hero p { font-size: 0.85rem; color: var(--text-muted); max-width: 260px; margin-bottom: 18px; }
+    .btn-gold {
+      display: inline-flex; align-items: center;
+      background: var(--gold); color: #0c0c0c; border: none;
+      padding: 11px 22px; border-radius: 30px; font-weight: 600;
+      font-size: 0.88rem; cursor: pointer; transition: all 0.25s;
+      font-family: 'Outfit', sans-serif;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+
+    .search-wrap { padding: 16px 18px 8px; }
+    .search-input {
+      width: 100%; padding: 13px 16px;
+      border: 1px solid var(--border); border-radius: 30px;
+      font-size: 0.9rem; background: var(--bg-elevated); color: var(--text);
+      outline: none; transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus { border-color: var(--gold); box-shadow: var(--glow); }
+
+    .filters {
+      display: flex; gap: 8px; overflow-x: auto; padding: 10px 18px 14px;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter-chip {
+      flex-shrink: 0; padding: 8px 16px; border-radius: 20px;
+      border: 1px solid var(--border); background: transparent;
+      font-size: 0.8rem; font-weight: 500; color: var(--text-muted);
+      cursor: pointer; transition: all 0.25s; white-space: nowrap;
+    }
+    .filter-chip.active, .filter-chip:hover {
+      background: var(--gold); color: #0c0c0c; border-color: var(--gold);
+    }
+
+    .section-label {
+      padding: 6px 18px 10px; font-size: 0.68rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); font-weight: 500;
+    }
+    .section-title { padding: 0 18px 14px; font-size: 1.4rem; font-weight: 600; }
+
+    .resto-list { display: flex; flex-direction: column; gap: 16px; padding: 0 18px 28px; }
+    .resto-card {
+      background: var(--bg-card); border-radius: var(--radius);
+      overflow: hidden; border: 1px solid var(--border); cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .resto-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow), var(--glow);
+      border-color: rgba(201,162,39,0.35);
+    }
+    .resto-img {
+      height: 148px; background-size: cover; background-position: center; position: relative;
+    }
+    .resto-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(12,12,12,0.55), transparent 60%);
+    }
+    .resto-badge {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      background: rgba(12,12,12,0.8); backdrop-filter: blur(6px);
+      color: var(--gold); border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 20px; font-size: 0.68rem;
+      letter-spacing: 0.5px; font-weight: 500;
+    }
+    .resto-info { padding: 14px 16px 16px; }
+    .resto-name { font-size: 1.15rem; font-weight: 600; margin-bottom: 6px; }
+    .resto-meta {
+      display: flex; flex-wrap: wrap; gap: 8px 14px;
+      font-size: 0.76rem; color: var(--text-muted);
+    }
+
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0;
       background: rgba(12,12,12,0.95); backdrop-filter: blur(16px);
@@ -80,13 +171,16 @@
     }
     .nav-item {
       display: flex; flex-direction: column; align-items: center;
-      font-size: 0.65rem; color: var(--text-muted); cursor: pointer;
-      background: none; border: none; gap: 3px; transition: color 0.2s;
+      font-size: 0.62rem; color: var(--text-muted); cursor: pointer;
+      background: none; border: none; gap: 4px; transition: color 0.2s;
+      letter-spacing: 0.3px; text-transform: uppercase; font-weight: 500;
     }
     .nav-item.active { color: var(--gold); }
-    .nav-item span { font-size: 1.25rem; }
+    .nav-item .nav-icon {
+      width: 20px; height: 20px; opacity: 0.7;
+    }
+    .nav-item.active .nav-icon { opacity: 1; }
 
-    /* Toast */
     .toast {
       position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%);
       background: var(--bg-card); color: var(--text);
@@ -95,43 +189,165 @@
       opacity: 0; transition: opacity 0.3s; pointer-events: none; box-shadow: var(--glow);
     }
     .toast.show { opacity: 1; }
-
-    /* Placeholder */
-    .placeholder {
-      text-align: center; padding: 80px 24px; color: var(--text-muted);
-    }
-    .placeholder h2 { color: var(--gold); margin-bottom: 12px; }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Food<span>Go</span></div>
     <div class="header-actions">
-      <button class="icon-btn" id="btnAccount" title="Account">👤</button>
+      <button class="icon-btn" id="btnAccount" title="Account">Acc</button>
       <button class="icon-btn" id="btnCart" title="Cart">
-        🛒 <span class="cart-badge hidden" id="cartBadge">0</span>
+        Cart <span class="cart-badge hidden" id="cartBadge">0</span>
       </button>
     </div>
   </header>
 
-  <main id="app">
-    <div class="placeholder">
-      <h2 class="serif">FoodGo Malta</h2>
-      <p>Premium dark theme loaded.<br>Building the full app step by step...</p>
-    </div>
-  </main>
+  <main id="app"></main>
 
   <nav class="bottom-nav" id="bottomNav">
-    <button class="nav-item active" data-view="home"><span>🏠</span>Home</button>
-    <button class="nav-item" data-view="cart"><span>🛒</span>Cart</button>
-    <button class="nav-item" data-view="orders"><span>📦</span>Orders</button>
-    <button class="nav-item" data-view="account"><span>👤</span>Account</button>
+    <button class="nav-item active" data-view="home">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      Home
+    </button>
+    <button class="nav-item" data-view="cart">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      Cart
+    </button>
+    <button class="nav-item" data-view="orders">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+      Orders
+    </button>
+    <button class="nav-item" data-view="account">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Account
+    </button>
   </nav>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    console.log('FoodGo Malta - Step 1 loaded');
+    const RESTAURANTS = [
+      {
+        id: 'r1', name: 'Pizza Paradise', category: 'Pizza', town: 'Valletta',
+        rating: 4.8, deliveryFee: 2.50, time: '25-35 min',
+        img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=500&fit=crop&q=80'
+      },
+      {
+        id: 'r2', name: 'Burger Bay', category: 'Burgers', town: 'Sliema',
+        rating: 4.6, deliveryFee: 2.00, time: '20-30 min',
+        img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=500&fit=crop&q=80'
+      },
+      {
+        id: 'r3', name: 'Maltese Kitchen', category: 'Maltese', town: 'Birkirkara',
+        rating: 4.9, deliveryFee: 2.80, time: '30-40 min',
+        img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=500&fit=crop&q=80'
+      },
+      {
+        id: 'r4', name: 'Sushi Wave', category: 'Sushi', town: "St. Julian's",
+        rating: 4.7, deliveryFee: 3.00, time: '25-40 min',
+        img: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&h=500&fit=crop&q=80'
+      },
+      {
+        id: 'r5', name: 'Healthy Bowls Co.', category: 'Healthy', town: 'Mosta',
+        rating: 4.5, deliveryFee: 2.20, time: '20-30 min',
+        img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=500&fit=crop&q=80'
+      },
+      {
+        id: 'r6', name: 'Sweet Treats', category: 'Desserts', town: 'Valletta',
+        rating: 4.8, deliveryFee: 1.80, time: '15-25 min',
+        img: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&h=500&fit=crop&q=80'
+      }
+    ];
+
+    const CATEGORIES = ['All', 'Pizza', 'Burgers', 'Maltese', 'Sushi', 'Healthy', 'Desserts'];
+
+    let state = {
+      view: 'home',
+      filter: 'All',
+      search: ''
+    };
+
+    function formatEUR(n) { return 'EUR ' + n.toFixed(2); }
+
+    function render() {
+      const app = document.getElementById('app');
+      document.querySelectorAll('.nav-item').forEach(n => {
+        n.classList.toggle('active', n.dataset.view === state.view);
+      });
+
+      if (state.view === 'home') {
+        let list = RESTAURANTS.filter(r => {
+          const matchCat = state.filter === 'All' || r.category === state.filter;
+          const matchSearch = !state.search ||
+            r.name.toLowerCase().includes(state.search.toLowerCase()) ||
+            r.category.toLowerCase().includes(state.search.toLowerCase()) ||
+            r.town.toLowerCase().includes(state.search.toLowerCase());
+          return matchCat && matchSearch;
+        });
+
+        app.innerHTML = `
+          <div class="hero">
+            <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&h=600&fit=crop&q=80')"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <div class="hero-tag">Malta's Finest</div>
+              <h1>Where Taste Meets True Elegance</h1>
+              <p>Discover exceptional restaurants across the islands.</p>
+              <button class="btn-gold" id="scrollToList">Explore Menu</button>
+            </div>
+          </div>
+          <div class="search-wrap">
+            <input class="search-input" id="searchInput" placeholder="Search restaurants or cuisine..." value="${state.search}" />
+          </div>
+          <div class="filters">
+            ${CATEGORIES.map(c => `<button class="filter-chip ${state.filter === c ? 'active' : ''}" data-filter="${c}">${c}</button>`).join('')}
+          </div>
+          <div class="section-label">Curated for you</div>
+          <h2 class="section-title">Restaurants near you</h2>
+          <div class="resto-list">
+            ${list.map(r => `
+              <div class="resto-card" data-resto="${r.id}">
+                <div class="resto-img" style="background-image:url('${r.img}')">
+                  <span class="resto-badge">${r.category}</span>
+                </div>
+                <div class="resto-info">
+                  <div class="resto-name">${r.name}</div>
+                  <div class="resto-meta">
+                    <span>${r.rating} rating</span>
+                    <span>${r.time}</span>
+                    <span>${r.town}</span>
+                    <span>Delivery ${formatEUR(r.deliveryFee)}</span>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        document.getElementById('searchInput').oninput = e => {
+          state.search = e.target.value;
+          render();
+        };
+        document.querySelectorAll('[data-filter]').forEach(btn => {
+          btn.onclick = () => { state.filter = btn.dataset.filter; render(); };
+        });
+        document.getElementById('scrollToList')?.addEventListener('click', () => {
+          document.querySelector('.resto-list')?.scrollIntoView({ behavior: 'smooth' });
+        });
+      } else {
+        app.innerHTML = `<div class="container" style="padding-top:40px;text-align:center;color:var(--text-muted);">
+          <p>Coming in next steps</p>
+        </div>`;
+      }
+    }
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.onclick = () => { state.view = item.dataset.view; render(); };
+    });
+    document.getElementById('btnCart').onclick = () => { state.view = 'cart'; render(); };
+    document.getElementById('btnAccount').onclick = () => { state.view = 'account'; render(); };
+
+    render();
   </script>
 </body>
 </html>
