@@ -33,6 +33,7 @@
       line-height: 1.5;
     }
     h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; }
+    a { color: inherit; text-decoration: none; }
 
     header {
       position: absolute; top: 0; left: 0; right: 0; z-index: 50;
@@ -52,7 +53,6 @@
       font-family: 'Inter', sans-serif;
     }
 
-    /* HERO */
     .hero {
       min-height: 100vh; display: flex; flex-direction: column;
       justify-content: center; padding: 100px 24px 48px;
@@ -150,33 +150,22 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== ABOUT US ===== */
-    .about {
-      background: var(--bg-panel);
-      padding: 56px 24px;
-    }
+    .about { background: var(--bg-panel); padding: 56px 24px; }
     .about-img {
       height: 240px; border-radius: 10px;
-      background-size: cover; background-position: center;
-      margin-bottom: 28px;
+      background-size: cover; background-position: center; margin-bottom: 28px;
     }
     .about-eyebrow {
       font-family: 'Petit Formal Script', cursive;
       color: var(--gold); font-size: 1.1rem; margin-bottom: 10px;
     }
-    .about h2 {
-      font-size: 1.8rem; line-height: 1.2; margin-bottom: 14px;
-    }
+    .about h2 { font-size: 1.8rem; line-height: 1.2; margin-bottom: 14px; }
     .about h2 .gold { color: var(--gold); }
     .about-text {
-      font-size: 0.92rem; color: var(--text-body); line-height: 1.65;
-      margin-bottom: 24px;
+      font-size: 0.92rem; color: var(--text-body); line-height: 1.65; margin-bottom: 24px;
     }
     .checklist { margin-bottom: 28px; }
-    .check-row {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 12px;
-    }
+    .check-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
     .check-icon {
       width: 24px; height: 24px; border-radius: 50%;
       background: var(--icon-bg); border: 1px solid var(--border);
@@ -185,41 +174,24 @@
     .check-icon svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 2.5; }
     .check-label { font-size: 0.88rem; color: var(--text); font-weight: 500; }
 
-    /* ===== POPULAR PICKS ===== */
-    .picks {
-      padding: 56px 0 48px;
-      background: var(--bg);
-    }
-    .picks-header {
-      text-align: center; margin-bottom: 28px; padding: 0 24px;
-    }
+    .picks { padding: 56px 0 48px; background: var(--bg); }
+    .picks-header { text-align: center; margin-bottom: 28px; padding: 0 24px; }
     .picks-eyebrow {
       font-family: 'Petit Formal Script', cursive;
       color: var(--gold); font-size: 1.1rem; margin-bottom: 8px;
     }
-    .picks-header h2 {
-      font-size: 1.8rem; margin-bottom: 10px;
-    }
-    .picks-underline {
-      width: 48px; height: 2px; background: var(--gold);
-      margin: 0 auto;
-    }
-    .picks-track-wrap {
-      position: relative; padding: 0 16px;
-    }
+    .picks-header h2 { font-size: 1.8rem; margin-bottom: 10px; }
+    .picks-underline { width: 48px; height: 2px; background: var(--gold); margin: 0 auto; }
+    .picks-track-wrap { position: relative; padding: 0 16px; }
     .picks-track {
       display: flex; gap: 16px; overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none; padding: 8px 8px 16px;
+      scroll-snap-type: x mandatory; scrollbar-width: none; padding: 8px 8px 16px;
     }
     .picks-track::-webkit-scrollbar { display: none; }
     .pick-card {
-      flex: 0 0 200px;
-      scroll-snap-align: start;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      overflow: hidden;
+      flex: 0 0 200px; scroll-snap-align: start;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 18px; overflow: hidden;
       transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     }
     .pick-card:hover {
@@ -227,40 +199,112 @@
       box-shadow: 0 12px 24px rgba(0,0,0,0.4);
       border-color: rgba(201,151,90,0.45);
     }
-    .pick-img {
-      height: 150px; background-size: cover; background-position: center;
-    }
+    .pick-img { height: 150px; background-size: cover; background-position: center; }
     .pick-body { padding: 14px; }
-    .pick-name {
-      font-size: 0.95rem; font-weight: 600; color: var(--text);
-      margin-bottom: 4px;
-    }
+    .pick-name { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
     .pick-desc {
-      font-size: 0.75rem; color: var(--text-muted);
-      margin-bottom: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .pick-row {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .pick-price {
-      font-size: 0.9rem; font-weight: 600; color: var(--gold);
-    }
+    .pick-row { display: flex; align-items: center; justify-content: space-between; }
+    .pick-price { font-size: 0.9rem; font-weight: 600; color: var(--gold); }
     .pick-cart {
       width: 32px; height: 32px; border-radius: 50%;
       border: 1px solid var(--gold); background: transparent;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
-    .pick-cart:hover { background: var(--icon-bg); }
     .pick-cart svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 2; }
-    .picks-cta {
-      text-align: center; margin-top: 24px;
-    }
+    .picks-cta { text-align: center; margin-top: 24px; }
 
-    .next-placeholder {
-      padding: 48px 24px; text-align: center;
-      color: var(--text-muted); font-size: 0.85rem;
+    /* ===== TRUST STRIP ===== */
+    .trust-strip {
+      background: var(--bg-panel);
       border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 36px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 16px;
+    }
+    .strip-item {
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .strip-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--icon-bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .strip-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.6; }
+    .strip-label { font-size: 0.88rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .strip-sub { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border-soft);
+      padding: 56px 24px 32px;
+    }
+    .footer-grid {
+      display: grid;
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+    .footer-col h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; color: var(--gold);
+      margin-bottom: 16px; font-weight: 600;
+    }
+    .footer-col p {
+      font-size: 0.85rem; color: var(--text-body); line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .newsletter {
+      display: flex; gap: 8px; margin-bottom: 18px;
+    }
+    .newsletter input {
+      flex: 1; padding: 11px 14px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 999px; color: var(--text); font-size: 0.85rem;
+      outline: none; font-family: 'Inter', sans-serif;
+    }
+    .newsletter input::placeholder { color: var(--text-muted); }
+    .newsletter input:focus { border-color: var(--gold); }
+    .newsletter button {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--gold); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .newsletter button svg { width: 16px; height: 16px; stroke: #14100C; fill: none; stroke-width: 2.2; }
+    .social-row { display: flex; gap: 10px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border); background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--gold); }
+    .social-btn svg { width: 15px; height: 15px; stroke: var(--gold); fill: none; stroke-width: 1.6; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 0.85rem; color: var(--text-body);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .contact-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-bottom: 12px; font-size: 0.85rem; color: var(--text-body);
+    }
+    .contact-row svg {
+      width: 16px; height: 16px; stroke: var(--gold); fill: none;
+      stroke-width: 1.6; flex-shrink: 0; margin-top: 2px;
+    }
+    .footer-bottom {
+      border-top: 1px solid var(--border-soft);
+      padding-top: 20px;
+      font-size: 0.78rem; color: var(--text-muted);
+      text-align: center;
     }
   </style>
 </head>
@@ -270,7 +314,6 @@
     <button class="h-btn">Menu</button>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-glow"></div>
     <div class="hero-eyebrow">Fresh. Bold. Unforgettable.</div>
@@ -301,34 +344,20 @@
     </div>
   </section>
 
-  <!-- ABOUT US -->
   <section class="about">
     <div class="about-img" style="background-image:url('https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=800&h=500&fit=crop&q=85')"></div>
     <div class="about-eyebrow">About Us</div>
     <h2>More Than Just<br><span class="gold">a Meal</span></h2>
     <p class="about-text">We partner with Malta's finest kitchens to bring you dishes prepared with local ingredients, traditional techniques, and modern care — delivered to your door.</p>
     <div class="checklist">
-      <div class="check-row">
-        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <span class="check-label">Locally Sourced Ingredients</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <span class="check-label">Sustainably Farmed</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <span class="check-label">Freshly Prepared Daily</span>
-      </div>
-      <div class="check-row">
-        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
-        <span class="check-label">Chef Crafted</span>
-      </div>
+      <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Locally Sourced Ingredients</span></div>
+      <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Sustainably Farmed</span></div>
+      <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Freshly Prepared Daily</span></div>
+      <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Chef Crafted</span></div>
     </div>
     <button class="btn-solid">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </section>
 
-  <!-- POPULAR PICKS -->
   <section class="picks">
     <div class="picks-header">
       <div class="picks-eyebrow">Our Signature</div>
@@ -336,16 +365,13 @@
       <div class="picks-underline"></div>
     </div>
     <div class="picks-track-wrap">
-      <div class="picks-track" id="picksTrack">
+      <div class="picks-track">
         <div class="pick-card">
           <div class="pick-img" style="background-image:url('https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=300&fit=crop&q=85')"></div>
           <div class="pick-body">
             <div class="pick-name">Truffle Pasta</div>
             <div class="pick-desc">Handmade tagliatelle, black truffle</div>
-            <div class="pick-row">
-              <span class="pick-price">EUR 14.50</span>
-              <button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button>
-            </div>
+            <div class="pick-row"><span class="pick-price">EUR 14.50</span><button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button></div>
           </div>
         </div>
         <div class="pick-card">
@@ -353,10 +379,7 @@
           <div class="pick-body">
             <div class="pick-name">Grilled Salmon</div>
             <div class="pick-desc">Atlantic salmon, citrus butter</div>
-            <div class="pick-row">
-              <span class="pick-price">EUR 18.00</span>
-              <button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button>
-            </div>
+            <div class="pick-row"><span class="pick-price">EUR 18.00</span><button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button></div>
           </div>
         </div>
         <div class="pick-card">
@@ -364,10 +387,7 @@
           <div class="pick-body">
             <div class="pick-name">Chef's Burger</div>
             <div class="pick-desc">Angus beef, aged cheddar</div>
-            <div class="pick-row">
-              <span class="pick-price">EUR 12.50</span>
-              <button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button>
-            </div>
+            <div class="pick-row"><span class="pick-price">EUR 12.50</span><button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button></div>
           </div>
         </div>
         <div class="pick-card">
@@ -375,10 +395,7 @@
           <div class="pick-body">
             <div class="pick-name">Ribeye Steak</div>
             <div class="pick-desc">28-day aged, herb butter</div>
-            <div class="pick-row">
-              <span class="pick-price">EUR 24.00</span>
-              <button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button>
-            </div>
+            <div class="pick-row"><span class="pick-price">EUR 24.00</span><button class="pick-cart"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -388,6 +405,91 @@
     </div>
   </section>
 
-  <div class="next-placeholder">Next: Trust Strip · Footer</div>
+  <!-- TRUST STRIP -->
+  <section class="trust-strip">
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div>
+        <div class="strip-label">Free Delivery</div>
+        <div class="strip-sub">On orders above EUR 25</div>
+      </div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div>
+        <div class="strip-label">Fresh & Fast</div>
+        <div class="strip-sub">Prepared with care</div>
+      </div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div>
+        <div class="strip-label">Secure Payment</div>
+        <div class="strip-sub">100% safe & secure</div>
+      </div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+      <div>
+        <div class="strip-label">Loyalty Rewards</div>
+        <div class="strip-sub">Earn points every order</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Stay in the Loop</h3>
+        <p>Get exclusive offers and new restaurant drops delivered to your inbox.</p>
+        <div class="newsletter">
+          <input type="email" placeholder="Your email" />
+          <button type="button" aria-label="Subscribe"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="social-row">
+          <button class="social-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></button>
+          <button class="social-btn" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></button>
+          <button class="social-btn" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#">Restaurants</a></li>
+          <li><a href="#">Popular Picks</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Customer Care</h3>
+        <ul class="footer-links">
+          <li><a href="#">Help Centre</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Refunds</a></li>
+          <li><a href="#">Contact Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+356 2123 4567</span>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          <span>hello@foodgo.mt</span>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Valletta, Malta</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 FoodGo Malta. All rights reserved.
+    </div>
+  </footer>
 </body>
 </html>
