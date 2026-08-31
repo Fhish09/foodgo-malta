@@ -33,7 +33,6 @@
     h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; }
     a { color: inherit; text-decoration: none; }
 
-    /* —— NAVBAR —— */
     header {
       position: absolute;
       top: 0; left: 0; right: 0;
@@ -107,7 +106,6 @@
       cursor: pointer;
     }
 
-    /* —— HERO —— */
     .hero {
       min-height: 100vh;
       display: grid;
@@ -205,7 +203,6 @@
     .trust-label { font-size: 0.78rem; font-weight: 600; }
     .trust-sub { font-size: 0.68rem; color: var(--text-muted); }
 
-    /* Hero image — soft feather, no hard box (coffee-style) */
     .hero-right {
       position: relative;
       z-index: 2;
@@ -236,15 +233,10 @@
       height: auto;
       display: block;
       object-fit: contain;
-      /* Soft multi-edge feather — left, bottom, outer edges fade into dark */
       -webkit-mask-image:
-        radial-gradient(ellipse 90% 88% at 58% 48%, #000 38%, transparent 72%),
-        linear-gradient(to right, transparent 0%, #000 12%, #000 100%),
-        linear-gradient(to top, transparent 0%, #000 18%, #000 100%);
-      -webkit-mask-composite: source-in;
+        radial-gradient(ellipse 90% 88% at 58% 48%, #000 38%, transparent 72%);
       mask-image:
         radial-gradient(ellipse 90% 88% at 58% 48%, #000 38%, transparent 72%);
-      mask-mode: alpha;
       mix-blend-mode: lighten;
       filter: contrast(1.05) saturate(1.06) brightness(1.04);
     }
@@ -264,22 +256,45 @@
       .hero h1 { font-size: 2.2rem; }
     }
 
-    /* —— REST OF PAGE (unchanged structure) —— */
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 520px;
+      min-height: 560px;
       background: var(--bg-panel);
+      align-items: center;
+      overflow: hidden;
     }
     .about-visual {
-      background-size: cover;
-      background-position: center;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 520px;
+      overflow: visible;
     }
-    .about-visual::after {
+    .about-visual::before {
       content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, transparent 55%, var(--bg-panel) 100%);
+      position: absolute;
+      width: 70%;
+      height: 70%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,151,90,0.14) 0%, transparent 70%);
+      filter: blur(45px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .about-visual img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      -webkit-mask-image: radial-gradient(ellipse 78% 78% at 50% 45%, #000 42%, transparent 76%);
+      mask-image: radial-gradient(ellipse 78% 78% at 50% 45%, #000 42%, transparent 76%);
+      mix-blend-mode: lighten;
+      filter: contrast(1.04) saturate(1.05) brightness(1.06);
     }
     .about-content {
       padding: 64px 48px;
@@ -309,8 +324,8 @@
 
     @media (max-width: 900px) {
       .about { grid-template-columns: 1fr; }
-      .about-visual { height: 260px; }
-      .about-visual::after { background: linear-gradient(to top, var(--bg-panel), transparent 50%); }
+      .about-visual { min-height: 300px; padding: 24px 0; }
+      .about-visual img { max-width: 280px; }
       .about-content { padding: 40px 24px; }
     }
 
@@ -494,7 +509,9 @@
   </section>
 
   <section class="about">
-    <div class="about-visual" style="background-image:url('https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=900&h=700&fit=crop&q=85')"></div>
+    <div class="about-visual">
+      <img src="about-chef.jpg" alt="Chef" />
+    </div>
     <div class="about-content">
       <div class="about-eyebrow">About Us</div>
       <h2>More Than Just<br><span class="gold">a Meal</span></h2>
