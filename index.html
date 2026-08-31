@@ -123,7 +123,6 @@
     .trust-label { font-size: 0.78rem; font-weight: 600; }
     .trust-sub { font-size: 0.68rem; color: var(--text-muted); }
 
-    /* Hero product — soft blend into dark bg (like coffee cup) */
     .hero-right {
       position: relative;
       z-index: 2;
@@ -135,33 +134,15 @@
     .hero-product {
       position: relative;
       width: 100%;
-      max-width: 540px;
+      max-width: 580px;
     }
     .hero-product img {
       width: 100%;
       height: auto;
       display: block;
-      /* KEY: blend image into dark background */
+      /* Full image as-is, no crop — blend into dark theme */
       mix-blend-mode: lighten;
-      filter: contrast(1.08) brightness(0.95);
-      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 48%, #000 35%, transparent 72%);
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 48%, #000 35%, transparent 72%);
-    }
-    .steam {
-      position: absolute;
-      width: 70px; height: 100px;
-      top: 8%; left: 40%;
-      background: linear-gradient(to top, transparent, rgba(255,255,255,0.28));
-      border-radius: 50%;
-      filter: blur(12px);
-      animation: steamRise 5s ease-in-out infinite;
-      pointer-events: none;
-      mix-blend-mode: screen;
-    }
-    @keyframes steamRise {
-      0%, 100% { opacity: 0; transform: translateY(14px) scaleY(0.65); }
-      35% { opacity: 0.6; }
-      70% { opacity: 0.12; transform: translateY(-45px) scaleY(1.35); }
+      filter: contrast(1.08) saturate(1.1) brightness(1.02);
     }
 
     @media (max-width: 900px) {
@@ -386,9 +367,7 @@
     </div>
     <div class="hero-right">
       <div class="hero-product">
-        <!-- Dark-background pasta bowl — blends with mix-blend-mode -->
-        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=1000&h=1000&fit=crop&q=90" alt="Signature pasta dish" />
-        <div class="steam"></div>
+        <img src="hero.jpg" alt="Signature pizza" />
       </div>
     </div>
   </section>
