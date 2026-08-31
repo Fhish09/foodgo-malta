@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>FoodGo Malta | Lazzu Go</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0c0c;
+      --bg-elevated: #141414;
+      --bg-card: #1a1a1a;
+      --gold: #c9a227;
+      --gold-light: #e8c547;
+      --gold-dim: rgba(201, 162, 39, 0.15);
+      --text: #f5f0e8;
+      --text-muted: #9a958c;
+      --border: rgba(201, 162, 39, 0.18);
+      --success: #4ade80;
+      --danger: #f87171;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.45);
+      --glow: 0 0 24px rgba(201, 162, 39, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 88px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; }
+    .hidden { display: none !important; }
+    .container { max-width: 480px; margin: 0 auto; padding: 0 18px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(12,12,12,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem; font-weight: 700;
+      letter-spacing: 0.5px; color: var(--text);
+    }
+    .logo span { color: var(--gold); }
+    .header-actions { display: flex; gap: 10px; align-items: center; }
+    .icon-btn {
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text); width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.05rem; position: relative; transition: all 0.25s;
+    }
+    .icon-btn:hover { border-color: var(--gold); box-shadow: var(--glow); }
+    .cart-badge {
+      position: absolute; top: -3px; right: -3px;
+      background: var(--gold); color: #0c0c0c;
+      font-size: 0.65rem; font-weight: 700;
+      width: 17px; height: 17px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: rgba(12,12,12,0.95); backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-around; padding: 10px 0 12px;
+      z-index: 90; max-width: 480px; margin: 0 auto;
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center;
+      font-size: 0.65rem; color: var(--text-muted); cursor: pointer;
+      background: none; border: none; gap: 3px; transition: color 0.2s;
+    }
+    .nav-item.active { color: var(--gold); }
+    .nav-item span { font-size: 1.25rem; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 96px; left: 50%; transform: translateX(-50%);
+      background: var(--bg-card); color: var(--text);
+      border: 1px solid var(--gold); padding: 12px 24px;
+      border-radius: 30px; font-size: 0.85rem; z-index: 300;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none; box-shadow: var(--glow);
+    }
+    .toast.show { opacity: 1; }
+
+    /* Placeholder */
+    .placeholder {
+      text-align: center; padding: 80px 24px; color: var(--text-muted);
+    }
+    .placeholder h2 { color: var(--gold); margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Food<span>Go</span></div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btnAccount" title="Account">👤</button>
+      <button class="icon-btn" id="btnCart" title="Cart">
+        🛒 <span class="cart-badge hidden" id="cartBadge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="app">
+    <div class="placeholder">
+      <h2 class="serif">FoodGo Malta</h2>
+      <p>Premium dark theme loaded.<br>Building the full app step by step...</p>
+    </div>
+  </main>
+
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="nav-item active" data-view="home"><span>🏠</span>Home</button>
+    <button class="nav-item" data-view="cart"><span>🛒</span>Cart</button>
+    <button class="nav-item" data-view="orders"><span>📦</span>Orders</button>
+    <button class="nav-item" data-view="account"><span>👤</span>Account</button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    console.log('FoodGo Malta - Step 1 loaded');
+  </script>
+</body>
+</html>
