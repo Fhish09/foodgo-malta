@@ -33,137 +33,238 @@
     h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; }
     a { color: inherit; text-decoration: none; }
 
+    /* —— NAVBAR —— */
     header {
-      position: absolute; top: 0; left: 0; right: 0; z-index: 50;
-      padding: 22px 40px;
-      display: flex; align-items: center; justify-content: space-between;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: transparent;
     }
     .logo {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem; font-weight: 700;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+    .logo-mark {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-mark svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
     .logo span { color: var(--gold); }
-    .h-btn {
-      background: transparent; border: 1px solid var(--border);
-      color: var(--text); height: 36px; padding: 0 18px;
-      border-radius: 999px; font-size: 0.72rem; font-weight: 500;
-      letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer;
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-body);
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: #14100C;
+      border: none;
+      height: 38px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: scale(1.02); }
+
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      height: 36px;
+      padding: 0 16px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      cursor: pointer;
     }
 
+    /* —— HERO —— */
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 0.95fr 1.15fr;
+      grid-template-columns: 1fr 1.2fr;
       align-items: center;
-      padding: 90px 40px 50px;
-      gap: 12px;
+      padding: 110px 56px 60px;
+      gap: 48px;
       position: relative;
       overflow: hidden;
       background: var(--bg);
     }
     .hero-glow {
       position: absolute;
-      width: 600px; height: 600px;
+      width: 640px; height: 640px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,151,90,0.18) 0%, transparent 65%);
-      top: 5%; right: -5%;
+      background: radial-gradient(circle, rgba(201,151,90,0.16) 0%, transparent 68%);
+      top: 8%; right: -8%;
       pointer-events: none;
-      filter: blur(55px);
-      animation: glowPulse 6s ease-in-out infinite;
+      filter: blur(60px);
+      animation: glowPulse 7s ease-in-out infinite;
     }
     @keyframes glowPulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 0.95; }
     }
 
-    .hero-left { position: relative; z-index: 3; max-width: 460px; padding-left: 12px; }
+    .hero-left {
+      position: relative;
+      z-index: 3;
+      max-width: 440px;
+    }
     .hero-eyebrow {
       font-family: 'Petit Formal Script', cursive;
-      color: var(--gold); font-size: 1.2rem; margin-bottom: 16px;
+      color: var(--gold);
+      font-size: 1.25rem;
+      margin-bottom: 18px;
     }
     .hero h1 {
-      font-size: clamp(2.4rem, 4.2vw, 3.4rem);
-      line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px;
+      font-size: clamp(2.5rem, 4.4vw, 3.5rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
     }
     .hero h1 .gold {
       background: var(--gold-grad);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero-sub {
-      font-size: 0.95rem; color: var(--text-body); line-height: 1.65;
-      max-width: 340px; margin-bottom: 28px;
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      max-width: 360px;
+      margin-bottom: 32px;
     }
-    .hero-btns { display: flex; gap: 12px; margin-bottom: 36px; flex-wrap: wrap; }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
     .btn-solid {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--gold); color: #14100C; border: none;
-      padding: 13px 26px; border-radius: 999px;
-      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      padding: 14px 28px; border-radius: 999px;
+      font-size: 0.84rem; font-weight: 600; cursor: pointer;
       font-family: 'Inter', sans-serif; transition: all 0.2s;
     }
     .btn-solid:hover { background: var(--gold-light); transform: scale(1.02); }
     .btn-outline {
       display: inline-flex; align-items: center; gap: 8px;
       background: transparent; color: var(--text);
-      border: 1px solid var(--gold); padding: 12px 22px;
-      border-radius: 999px; font-size: 0.82rem; font-weight: 500;
+      border: 1px solid var(--gold); padding: 13px 24px;
+      border-radius: 999px; font-size: 0.84rem; font-weight: 500;
       cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: background 0.2s;
     }
     .btn-outline:hover { background: rgba(201,151,90,0.08); }
 
-    .trust-row { display: flex; gap: 22px; flex-wrap: wrap; }
+    .trust-row {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
     .trust-item { display: flex; align-items: center; gap: 10px; }
     .trust-icon {
       width: 36px; height: 36px; border-radius: 50%;
       background: var(--icon-bg); border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
     .trust-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.7; }
     .trust-label { font-size: 0.78rem; font-weight: 600; }
     .trust-sub { font-size: 0.68rem; color: var(--text-muted); }
 
-    /* Like coffee cup: large, soft edges, melts into dark bg — NO hard box */
+    /* Hero image — soft feather, no hard box (coffee-style) */
     .hero-right {
       position: relative;
       z-index: 2;
       display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 520px;
+      justify-content: flex-end;
+      min-height: 560px;
       overflow: visible;
     }
     .hero-product {
       position: relative;
-      width: 105%;
-      max-width: 640px;
-      margin-right: -20px;
+      width: 100%;
+      max-width: 680px;
+    }
+    .hero-product::before {
+      content: '';
+      position: absolute;
+      inset: 8% 5% 5% 8%;
+      background: radial-gradient(ellipse at 55% 50%, rgba(201,151,90,0.12) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+      z-index: 0;
     }
     .hero-product img {
+      position: relative;
+      z-index: 1;
       width: 100%;
       height: auto;
       display: block;
-      /* Full image, no crop of content */
       object-fit: contain;
-      /* Soft fade so edges dissolve into dark page (like coffee reference) */
-      -webkit-mask-image: radial-gradient(ellipse 85% 85% at 55% 50%, #000 45%, transparent 78%);
-      mask-image: radial-gradient(ellipse 85% 85% at 55% 50%, #000 45%, transparent 78%);
+      /* Soft multi-edge feather — left, bottom, outer edges fade into dark */
+      -webkit-mask-image:
+        radial-gradient(ellipse 90% 88% at 58% 48%, #000 38%, transparent 72%),
+        linear-gradient(to right, transparent 0%, #000 12%, #000 100%),
+        linear-gradient(to top, transparent 0%, #000 18%, #000 100%);
+      -webkit-mask-composite: source-in;
+      mask-image:
+        radial-gradient(ellipse 90% 88% at 58% 48%, #000 38%, transparent 72%);
+      mask-mode: alpha;
       mix-blend-mode: lighten;
-      filter: contrast(1.06) saturate(1.08) brightness(1.05);
+      filter: contrast(1.05) saturate(1.06) brightness(1.04);
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 960px) {
+      header { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
       .hero {
         grid-template-columns: 1fr;
-        padding: 100px 24px 40px;
+        padding: 100px 24px 48px;
+        gap: 24px;
         min-height: auto;
       }
-      .hero-right { min-height: 300px; }
-      .hero-product { max-width: 380px; width: 100%; margin: 0 auto; }
+      .hero-right { min-height: 320px; justify-content: center; }
+      .hero-product { max-width: 400px; }
       .hero h1 { font-size: 2.2rem; }
-      header { padding: 18px 20px; }
     }
 
+    /* —— REST OF PAGE (unchanged structure) —— */
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -343,8 +444,21 @@
 </head>
 <body>
   <header>
-    <div class="logo">Food<span>Go</span></div>
-    <button class="h-btn">Menu</button>
+    <a href="#" class="logo">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg>
+      </span>
+      Food<span>Go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Locations</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Order Now</button>
+    <button class="nav-toggle" type="button">Menu</button>
   </header>
 
   <section class="hero">
