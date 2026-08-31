@@ -6,19 +6,16 @@
   <title>FoodGo Malta</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #080808;
-      --bg-elevated: #111;
-      --bg-card: #161616;
-      --gold: #d4a84b;
-      --gold-light: #e8c26a;
-      --gold-dim: rgba(212, 168, 75, 0.12);
-      --text: #f7f3eb;
-      --text-muted: #8a857c;
-      --border: rgba(212, 168, 75, 0.14);
-      --radius: 12px;
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --gold: #c9a227;
+      --gold-light: #e0b84a;
+      --text: #f5f0e6;
+      --text-muted: #9a948a;
+      --border: rgba(201,162,39,0.15);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -26,236 +23,235 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: 80px;
+      padding-bottom: 78px;
       -webkit-font-smoothing: antialiased;
     }
-    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
-    .hidden { display: none !important; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
 
-    /* Header - minimal transparent */
+    /* Header */
     header {
-      position: absolute; top: 0; left: 0; right: 0; z-index: 50;
-      padding: 18px 20px;
+      position: absolute; top: 0; left: 0; right: 0; z-index: 40;
+      padding: 16px 18px;
       display: flex; align-items: center; justify-content: space-between;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
     }
     .logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-weight: 700; letter-spacing: 1px;
+      font-size: 1.4rem; font-weight: 700; letter-spacing: 1px;
     }
     .logo span { color: var(--gold); }
-    .header-actions { display: flex; gap: 8px; }
-    .icon-btn {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-      color: var(--text); height: 36px; padding: 0 14px; border-radius: 20px;
-      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.5px;
-      cursor: pointer; text-transform: uppercase; transition: all 0.2s;
+    .header-right { display: flex; gap: 8px; align-items: center; }
+    .h-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text); height: 34px; padding: 0 14px;
+      border-radius: 20px; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.4px; text-transform: uppercase; cursor: pointer;
     }
-    .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* Cinematic Hero */
+    /* ===== HERO - split style like reference ===== */
     .hero {
-      position: relative; height: 72vh; min-height: 420px;
-      display: flex; align-items: flex-end;
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 520px;
+      position: relative;
+      background: #0a0a0a;
     }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center 30%;
+    .hero-left {
+      padding: 90px 22px 28px;
+      display: flex; flex-direction: column; justify-content: center;
+      z-index: 2;
     }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(to top, #080808 0%, transparent 45%),
-        linear-gradient(to right, rgba(8,8,8,0.75) 0%, transparent 55%);
+    .hero-left h1 {
+      font-size: 2.2rem; font-weight: 600; font-style: italic;
+      line-height: 1.15; margin-bottom: 14px;
     }
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 0 22px 36px; max-width: 340px;
-    }
-    .hero-tag {
-      font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 12px; font-weight: 500;
-    }
-    .hero h1 {
-      font-size: 2.35rem; line-height: 1.12; font-weight: 600;
-      margin-bottom: 12px; font-style: italic;
-    }
-    .hero p {
-      font-size: 0.88rem; color: var(--text-muted); line-height: 1.55;
-      margin-bottom: 22px;
+    .hero-left p {
+      font-size: 0.86rem; color: var(--text-muted);
+      line-height: 1.6; margin-bottom: 24px; max-width: 280px;
     }
     .btn-gold {
       display: inline-block;
       background: var(--gold); color: #0a0a0a;
-      border: none; padding: 13px 28px; border-radius: 4px;
-      font-weight: 600; font-size: 0.82rem; letter-spacing: 0.8px;
-      text-transform: uppercase; cursor: pointer; transition: all 0.25s;
+      border: none; padding: 12px 26px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer;
+      border-radius: 3px; transition: background 0.2s;
       font-family: 'Outfit', sans-serif;
+      align-self: flex-start;
     }
     .btn-gold:hover { background: var(--gold-light); }
 
-    /* Featured section - like the steak + text layout in reference */
-    .featured {
-      padding: 40px 20px;
-      display: grid; gap: 24px;
+    .hero-right {
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
     }
-    .featured-block {
-      display: grid; gap: 16px;
-    }
-    .featured-img {
-      height: 220px; border-radius: var(--radius);
-      background-size: cover; background-position: center;
-      position: relative; overflow: hidden;
-    }
-    .featured-img::after {
+    .hero-right::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.4), transparent 50%);
+      background: linear-gradient(to bottom, transparent 40%, #0a0a0a 100%);
     }
-    .featured-text h3 {
-      font-size: 1.45rem; font-weight: 600; margin-bottom: 8px;
-      font-style: italic;
+
+    /* ===== FEATURED - image left, text right (steak section) ===== */
+    .featured {
+      padding: 36px 20px;
+      display: grid;
+      gap: 20px;
     }
-    .featured-text p {
-      font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;
-      margin-bottom: 14px;
+    .feat-img {
+      height: 240px;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+    }
+    .feat-text h2 {
+      font-size: 1.5rem; font-weight: 600; font-style: italic;
+      margin-bottom: 10px; line-height: 1.2;
+    }
+    .feat-text p {
+      font-size: 0.84rem; color: var(--text-muted);
+      line-height: 1.65; margin-bottom: 18px;
     }
     .btn-outline {
       display: inline-block;
       background: transparent; color: var(--gold);
-      border: 1px solid var(--gold); padding: 10px 22px; border-radius: 4px;
-      font-weight: 500; font-size: 0.78rem; letter-spacing: 0.6px;
-      text-transform: uppercase; cursor: pointer; transition: all 0.25s;
+      border: 1px solid var(--gold); padding: 10px 22px;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.8px;
+      text-transform: uppercase; cursor: pointer; border-radius: 3px;
     }
-    .btn-outline:hover { background: var(--gold-dim); }
 
-    /* Premium Courses grid */
-    .courses-section { padding: 10px 20px 40px; }
-    .courses-header {
-      text-align: center; margin-bottom: 24px;
+    /* ===== PREMIUM COURSES ===== */
+    .courses {
+      padding: 10px 0 40px;
     }
-    .courses-header .label {
-      font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 6px;
+    .courses-title {
+      text-align: center;
+      font-size: 1.55rem; font-weight: 600; font-style: italic;
+      margin-bottom: 22px;
     }
-    .courses-header h2 {
-      font-size: 1.7rem; font-weight: 600; font-style: italic;
+    .courses-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 0 20px 8px;
+      scrollbar-width: none;
     }
-    .courses-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-    }
-    .course-card {
-      background: var(--bg-card); border-radius: var(--radius);
-      overflow: hidden; border: 1px solid var(--border);
-      cursor: pointer; transition: transform 0.25s, border-color 0.25s;
-    }
-    .course-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(212,168,75,0.35);
+    .courses-scroll::-webkit-scrollbar { display: none; }
+    .course {
+      flex: 0 0 140px;
+      text-align: center;
     }
     .course-img {
-      height: 110px; background-size: cover; background-position: center;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 10px;
+      border: 2px solid var(--border);
     }
-    .course-info { padding: 12px; }
     .course-name {
-      font-size: 0.92rem; font-weight: 600; margin-bottom: 3px;
       font-family: 'Cormorant Garamond', serif;
-    }
-    .course-meta {
-      font-size: 0.72rem; color: var(--text-muted);
+      font-size: 0.95rem; font-weight: 600;
+      margin-bottom: 2px;
     }
     .course-price {
-      color: var(--gold); font-weight: 500; margin-top: 4px; font-size: 0.82rem;
+      font-size: 0.78rem; color: var(--gold);
     }
 
-    /* Restaurant list */
+    /* ===== RESTAURANTS ===== */
     .resto-section { padding: 0 20px 40px; }
-    .resto-card {
-      background: var(--bg-card); border-radius: var(--radius);
-      overflow: hidden; border: 1px solid var(--border);
-      margin-bottom: 16px; cursor: pointer;
-      transition: transform 0.25s, border-color 0.25s;
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
     }
-    .resto-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(212,168,75,0.3);
+    .section-h {
+      font-size: 1.35rem; font-weight: 600; font-style: italic;
+      margin-bottom: 18px;
+    }
+    .resto-card {
+      background: var(--bg-card);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      cursor: pointer;
     }
     .resto-img {
-      height: 160px; background-size: cover; background-position: center;
+      height: 150px;
+      background-size: cover;
+      background-position: center;
       position: relative;
     }
     .resto-img::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(8,8,8,0.7), transparent 50%);
+      background: linear-gradient(to top, rgba(10,10,10,0.65), transparent 55%);
     }
     .resto-badge {
-      position: absolute; top: 12px; left: 12px; z-index: 2;
-      background: rgba(0,0,0,0.65); color: var(--gold);
-      border: 1px solid var(--border); padding: 4px 12px;
-      border-radius: 3px; font-size: 0.65rem; letter-spacing: 1px;
-      text-transform: uppercase; font-weight: 500;
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      background: rgba(0,0,0,0.7); color: var(--gold);
+      border: 1px solid var(--border);
+      padding: 3px 10px; font-size: 0.62rem;
+      letter-spacing: 1px; text-transform: uppercase;
     }
-    .resto-info { padding: 14px 16px; }
+    .resto-info { padding: 12px 14px; }
     .resto-name {
-      font-size: 1.2rem; font-weight: 600; margin-bottom: 4px;
       font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-weight: 600; margin-bottom: 4px;
     }
     .resto-meta {
-      font-size: 0.76rem; color: var(--text-muted);
-      display: flex; flex-wrap: wrap; gap: 10px;
+      font-size: 0.74rem; color: var(--text-muted);
+      display: flex; flex-wrap: wrap; gap: 8px 12px;
     }
 
-    /* Search */
-    .search-bar {
-      padding: 0 20px 16px;
-      margin-top: -20px; position: relative; z-index: 5;
+    /* Search + filters */
+    .search-row {
+      padding: 0 20px 12px;
     }
     .search-input {
-      width: 100%; padding: 14px 18px;
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--text); font-size: 0.88rem;
-      outline: none; transition: border-color 0.2s;
+      width: 100%; padding: 12px 16px;
+      background: #111; border: 1px solid var(--border);
+      border-radius: 6px; color: var(--text); font-size: 0.86rem;
+      outline: none;
     }
     .search-input::placeholder { color: var(--text-muted); }
     .search-input:focus { border-color: var(--gold); }
-
     .filters {
-      display: flex; gap: 8px; overflow-x: auto; padding: 0 20px 20px;
-      scrollbar-width: none;
+      display: flex; gap: 8px; overflow-x: auto;
+      padding: 0 20px 20px; scrollbar-width: none;
     }
     .filters::-webkit-scrollbar { display: none; }
-    .filter-chip {
-      flex-shrink: 0; padding: 8px 16px;
+    .chip {
+      flex-shrink: 0; padding: 7px 14px;
       border: 1px solid var(--border); background: transparent;
-      color: var(--text-muted); font-size: 0.78rem; border-radius: 4px;
-      cursor: pointer; transition: all 0.2s; letter-spacing: 0.3px;
+      color: var(--text-muted); font-size: 0.76rem;
+      border-radius: 3px; cursor: pointer;
     }
-    .filter-chip.active, .filter-chip:hover {
-      background: var(--gold); color: #0a0a0a; border-color: var(--gold);
-    }
+    .chip.active { background: var(--gold); color: #0a0a0a; border-color: var(--gold); }
 
     /* Bottom nav */
     .bottom-nav {
       position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(8,8,8,0.96); backdrop-filter: blur(20px);
+      background: rgba(10,10,10,0.97);
       border-top: 1px solid var(--border);
       display: flex; justify-content: space-around;
-      padding: 12px 0 14px; z-index: 90; max-width: 480px; margin: 0 auto;
+      padding: 10px 0 12px; z-index: 90;
+      max-width: 480px; margin: 0 auto;
     }
     .nav-item {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
       background: none; border: none; color: var(--text-muted);
-      font-size: 0.6rem; letter-spacing: 0.5px; text-transform: uppercase;
-      font-weight: 500; cursor: pointer; transition: color 0.2s;
+      font-size: 0.58rem; letter-spacing: 0.4px; text-transform: uppercase;
+      font-weight: 500; cursor: pointer;
     }
     .nav-item.active { color: var(--gold); }
-    .nav-item svg { width: 20px; height: 20px; opacity: 0.6; }
+    .nav-item svg { width: 20px; height: 20px; opacity: 0.55; }
     .nav-item.active svg { opacity: 1; }
 
     .toast {
-      position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+      position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%);
       background: var(--bg-card); border: 1px solid var(--gold);
-      color: var(--text); padding: 12px 24px; border-radius: 4px;
-      font-size: 0.84rem; z-index: 300; opacity: 0; transition: opacity 0.3s;
+      color: var(--text); padding: 11px 22px; border-radius: 3px;
+      font-size: 0.82rem; z-index: 300; opacity: 0; transition: opacity 0.3s;
       pointer-events: none;
     }
     .toast.show { opacity: 1; }
@@ -264,9 +260,9 @@
 <body>
   <header>
     <div class="logo">Food<span>Go</span></div>
-    <div class="header-actions">
-      <button class="icon-btn" id="btnAccount">Account</button>
-      <button class="icon-btn" id="btnCart">Cart</button>
+    <div class="header-right">
+      <button class="h-btn" id="btnAccount">Account</button>
+      <button class="h-btn" id="btnCart">Cart</button>
     </div>
   </header>
 
@@ -309,16 +305,11 @@
         img:'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&h=500&fit=crop&q=85' }
     ];
 
-    const FEATURED = [
-      { title: 'Taverna Fresca', desc: 'Wood-fired pasta and seasonal ingredients from local Maltese farms, finished with aged parmesan and fresh herbs.', img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=700&h=500&fit=crop&q=85' },
-      { title: 'Coastal Grill', desc: 'Prime cuts and Mediterranean seafood, slow-cooked over open flame with island herbs and citrus.', img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=700&h=500&fit=crop&q=85' }
-    ];
-
-    const PREMIUM_DISHES = [
-      { name: 'Truffle Pasta', price: 14.50, img: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=300&fit=crop&q=85' },
-      { name: 'Ribeye Steak', price: 22.00, img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop&q=85' },
-      { name: 'Seafood Risotto', price: 16.50, img: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=300&fit=crop&q=85' },
-      { name: 'Chocolate Souffle', price: 8.50, img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400&h=300&fit=crop&q=85' }
+    const COURSES = [
+      { name: 'Pasta Primavera', price: 12.50, img: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=400&fit=crop&q=85' },
+      { name: 'Risotto Funghi', price: 14.00, img: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=400&fit=crop&q=85' },
+      { name: 'Seafood Linguine', price: 16.50, img: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400&h=400&fit=crop&q=85' },
+      { name: 'Truffle Tagliatelle', price: 18.00, img: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400&h=400&fit=crop&q=85' }
     ];
 
     const CATEGORIES = ['All','Pizza','Burgers','Maltese','Sushi','Healthy','Desserts'];
@@ -331,71 +322,61 @@
       document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === state.view));
 
       if (state.view !== 'home') {
-        app.innerHTML = `<div style="padding:100px 24px;text-align:center;color:var(--text-muted);"><p>Coming in next steps</p></div>`;
+        app.innerHTML = '<div style="padding:120px 24px;text-align:center;color:var(--text-muted)"><p>Coming next</p></div>';
         return;
       }
 
       const list = RESTAURANTS.filter(r => {
         const cat = state.filter === 'All' || r.category === state.filter;
-        const q = !state.search || r.name.toLowerCase().includes(state.search.toLowerCase()) || r.category.toLowerCase().includes(state.search.toLowerCase()) || r.town.toLowerCase().includes(state.search.toLowerCase());
+        const q = !state.search || r.name.toLowerCase().includes(state.search.toLowerCase()) || r.category.toLowerCase().includes(state.search.toLowerCase());
         return cat && q;
       });
 
       app.innerHTML = `
-        <div class="hero">
-          <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&h=900&fit=crop&q=85')"></div>
-          <div class="hero-overlay"></div>
-          <div class="hero-content">
-            <div class="hero-tag">Malta's Finest</div>
-            <h1>Where Taste Meets True Elegance</h1>
-            <p>Exceptional dining experiences delivered from the best kitchens across the islands.</p>
-            <button class="btn-gold" id="scrollExplore">Explore Menu</button>
+        <!-- HERO: text + food image (like reference) -->
+        <section class="hero">
+          <div class="hero-left">
+            <h1>Where Taste Meets<br>True Elegance</h1>
+            <p>Exceptional dishes crafted with care, delivered from the finest kitchens across Malta.</p>
+            <button class="btn-gold" id="btnExplore">Explore</button>
           </div>
-        </div>
+          <div class="hero-right" style="background-image:url('https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&h=700&fit=crop&q=85')"></div>
+        </section>
 
-        <div class="search-bar">
-          <input class="search-input" id="searchInput" placeholder="Search restaurants or cuisine..." value="${state.search}" />
-        </div>
-        <div class="filters">
-          ${CATEGORIES.map(c => `<button class="filter-chip ${state.filter===c?'active':''}" data-filter="${c}">${c}</button>`).join('')}
-        </div>
-
-        <div class="featured">
-          ${FEATURED.map((f,i) => `
-            <div class="featured-block" style="${i%2===1 ? 'direction:rtl' : ''}">
-              <div class="featured-img" style="background-image:url('${f.img}'); direction:ltr;"></div>
-              <div class="featured-text" style="direction:ltr;">
-                <h3>${f.title}</h3>
-                <p>${f.desc}</p>
-                <button class="btn-outline">View Menu</button>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-
-        <div class="courses-section">
-          <div class="courses-header">
-            <div class="label">Signature Selection</div>
-            <h2>Premium Courses</h2>
+        <!-- FEATURED: steak section -->
+        <section class="featured">
+          <div class="feat-img" style="background-image:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&h=600&fit=crop&q=85')"></div>
+          <div class="feat-text">
+            <h2>Taverna Fresca<br>Seasonal Selection</h2>
+            <p>Prime cuts and wood-fired specialties prepared with local herbs, citrus, and the finest island produce.</p>
+            <button class="btn-outline">View Menu</button>
           </div>
-          <div class="courses-grid">
-            ${PREMIUM_DISHES.map(d => `
-              <div class="course-card">
-                <div class="course-img" style="background-image:url('${d.img}')"></div>
-                <div class="course-info">
-                  <div class="course-name">${d.name}</div>
-                  <div class="course-price">${formatEUR(d.price)}</div>
-                </div>
+        </section>
+
+        <!-- PREMIUM COURSES - circular dishes like reference -->
+        <section class="courses">
+          <h2 class="courses-title">Premium Courses</h2>
+          <div class="courses-scroll">
+            ${COURSES.map(c => `
+              <div class="course">
+                <div class="course-img" style="background-image:url('${c.img}')"></div>
+                <div class="course-name">${c.name}</div>
+                <div class="course-price">${formatEUR(c.price)}</div>
               </div>
             `).join('')}
           </div>
+        </section>
+
+        <div class="search-row">
+          <input class="search-input" id="searchInput" placeholder="Search restaurants..." value="${state.search}" />
+        </div>
+        <div class="filters">
+          ${CATEGORIES.map(c => `<button class="chip ${state.filter===c?'active':''}" data-filter="${c}">${c}</button>`).join('')}
         </div>
 
-        <div class="resto-section">
-          <div class="courses-header" style="text-align:left; margin-bottom:18px;">
-            <div class="label">Near You</div>
-            <h2 style="font-size:1.4rem;">Restaurants</h2>
-          </div>
+        <section class="resto-section">
+          <div class="section-label">Near You</div>
+          <h2 class="section-h">Restaurants</h2>
           ${list.map(r => `
             <div class="resto-card" data-resto="${r.id}">
               <div class="resto-img" style="background-image:url('${r.img}')">
@@ -412,13 +393,15 @@
               </div>
             </div>
           `).join('')}
-        </div>
+        </section>
       `;
 
       document.getElementById('searchInput').oninput = e => { state.search = e.target.value; render(); };
-      document.querySelectorAll('[data-filter]').forEach(b => b.onclick = () => { state.filter = b.dataset.filter; render(); });
-      document.getElementById('scrollExplore')?.addEventListener('click', () => {
-        document.querySelector('.courses-section')?.scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('[data-filter]').forEach(b => {
+        b.onclick = () => { state.filter = b.dataset.filter; render(); };
+      });
+      document.getElementById('btnExplore')?.addEventListener('click', () => {
+        document.querySelector('.courses')?.scrollIntoView({ behavior: 'smooth' });
       });
     }
 
