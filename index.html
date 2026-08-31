@@ -50,34 +50,33 @@
       letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer;
     }
 
-    /* ===== HERO — exact coffee layout ===== */
     .hero {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1.05fr;
+      grid-template-columns: 1fr 1.1fr;
       align-items: center;
       padding: 100px 48px 60px;
-      gap: 20px;
+      gap: 24px;
       position: relative;
       overflow: hidden;
+      background: var(--bg);
     }
-    /* Soft gold ambient glow behind product */
     .hero-glow {
       position: absolute;
-      width: 520px; height: 520px;
+      width: 560px; height: 560px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,151,90,0.22) 0%, transparent 70%);
-      top: 5%; right: 0;
+      background: radial-gradient(circle, rgba(201,151,90,0.2) 0%, transparent 68%);
+      top: 0; right: -40px;
       pointer-events: none;
-      filter: blur(40px);
+      filter: blur(50px);
       animation: glowPulse 6s ease-in-out infinite;
     }
     @keyframes glowPulse {
-      0%, 100% { opacity: 0.7; }
+      0%, 100% { opacity: 0.65; }
       50% { opacity: 1; }
     }
 
-    .hero-left { position: relative; z-index: 2; max-width: 460px; }
+    .hero-left { position: relative; z-index: 3; max-width: 460px; }
     .hero-eyebrow {
       font-family: 'Petit Formal Script', cursive;
       color: var(--gold); font-size: 1.2rem; margin-bottom: 16px;
@@ -124,38 +123,45 @@
     .trust-label { font-size: 0.78rem; font-weight: 600; }
     .trust-sub { font-size: 0.68rem; color: var(--text-muted); }
 
-    /* Product image: SOFT EDGES — blends into dark bg like coffee cup */
+    /* Hero product — soft blend into dark bg (like coffee cup) */
     .hero-right {
-      position: relative; z-index: 2;
-      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 480px;
     }
     .hero-product {
-      width: 100%;
-      max-width: 520px;
-      aspect-ratio: 1 / 1;
       position: relative;
-      /* Soft circular fade so image melts into background */
-      -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 40%, transparent 75%);
-      mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 40%, transparent 75%);
+      width: 100%;
+      max-width: 540px;
     }
     .hero-product img {
-      width: 100%; height: 100%;
-      object-fit: cover;
+      width: 100%;
+      height: auto;
       display: block;
-      border-radius: 50%;
+      /* KEY: blend image into dark background */
+      mix-blend-mode: lighten;
+      filter: contrast(1.08) brightness(0.95);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 48%, #000 35%, transparent 72%);
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 48%, #000 35%, transparent 72%);
     }
     .steam {
-      position: absolute; width: 60px; height: 90px;
-      top: 12%; left: 42%;
-      background: linear-gradient(to top, transparent, rgba(255,255,255,0.3));
-      border-radius: 50%; filter: blur(10px);
+      position: absolute;
+      width: 70px; height: 100px;
+      top: 8%; left: 40%;
+      background: linear-gradient(to top, transparent, rgba(255,255,255,0.28));
+      border-radius: 50%;
+      filter: blur(12px);
       animation: steamRise 5s ease-in-out infinite;
       pointer-events: none;
+      mix-blend-mode: screen;
     }
     @keyframes steamRise {
-      0%, 100% { opacity: 0; transform: translateY(12px) scaleY(0.7); }
-      35% { opacity: 0.55; }
-      70% { opacity: 0.1; transform: translateY(-40px) scaleY(1.3); }
+      0%, 100% { opacity: 0; transform: translateY(14px) scaleY(0.65); }
+      35% { opacity: 0.6; }
+      70% { opacity: 0.12; transform: translateY(-45px) scaleY(1.35); }
     }
 
     @media (max-width: 900px) {
@@ -164,12 +170,12 @@
         padding: 100px 24px 40px;
         min-height: auto;
       }
-      .hero-product { max-width: 340px; margin: 0 auto; }
+      .hero-right { min-height: 320px; }
+      .hero-product { max-width: 360px; }
       .hero h1 { font-size: 2.2rem; }
       header { padding: 18px 20px; }
     }
 
-    /* ===== ABOUT — split like coffee bag section ===== */
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -184,20 +190,17 @@
     .about-visual::after {
       content: '';
       position: absolute; inset: 0;
-      background: linear-gradient(to right, transparent 60%, var(--bg-panel) 100%);
+      background: linear-gradient(to right, transparent 55%, var(--bg-panel) 100%);
     }
     .about-content {
       padding: 64px 48px;
       display: flex; flex-direction: column; justify-content: center;
-      position: relative;
     }
     .about-eyebrow {
       font-family: 'Petit Formal Script', cursive;
       color: var(--gold); font-size: 1.15rem; margin-bottom: 12px;
     }
-    .about h2 {
-      font-size: 2.1rem; line-height: 1.15; margin-bottom: 16px;
-    }
+    .about h2 { font-size: 2.1rem; line-height: 1.15; margin-bottom: 16px; }
     .about h2 .gold { color: var(--gold); }
     .about-text {
       font-size: 0.92rem; color: var(--text-body); line-height: 1.7;
@@ -214,14 +217,6 @@
     }
     .check-icon svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 2.5; }
     .check-label { font-size: 0.9rem; font-weight: 500; }
-    /* Decorative leaf hint on right */
-    .about-leaf {
-      position: absolute; right: -20px; bottom: 40px;
-      width: 160px; height: 200px; opacity: 0.12;
-      background: url('https://images.unsplash.com/photo-1515586007050-e8f0e5e0e0e0?w=200') center/contain no-repeat;
-      pointer-events: none;
-      filter: grayscale(1);
-    }
 
     @media (max-width: 900px) {
       .about { grid-template-columns: 1fr; }
@@ -230,7 +225,6 @@
       .about-content { padding: 40px 24px; }
     }
 
-    /* ===== POPULAR PICKS ===== */
     .picks { padding: 72px 0 56px; }
     .picks-header { text-align: center; margin-bottom: 36px; }
     .picks-eyebrow {
@@ -259,11 +253,7 @@
       box-shadow: 0 16px 32px rgba(0,0,0,0.45);
       border-color: rgba(201,151,90,0.4);
     }
-    .pick-img {
-      height: 160px;
-      background-size: cover;
-      background-position: center;
-    }
+    .pick-img { height: 160px; background-size: cover; background-position: center; }
     .pick-body { padding: 16px; }
     .pick-name { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
     .pick-desc {
@@ -280,7 +270,6 @@
     .pick-cart svg { width: 15px; height: 15px; stroke: var(--gold); fill: none; stroke-width: 2; }
     .picks-cta { text-align: center; margin-top: 28px; }
 
-    /* ===== TRUST STRIP ===== */
     .trust-strip {
       background: var(--bg-panel);
       border-top: 1px solid var(--border-soft);
@@ -303,7 +292,6 @@
       .trust-strip { grid-template-columns: 1fr 1fr; padding: 28px 20px; }
     }
 
-    /* ===== FOOTER ===== */
     footer {
       background: var(--bg);
       padding: 64px 40px 32px;
@@ -371,7 +359,6 @@
     <button class="h-btn">Menu</button>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-glow"></div>
     <div class="hero-left">
@@ -399,13 +386,13 @@
     </div>
     <div class="hero-right">
       <div class="hero-product">
-        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&h=900&fit=crop&q=90" alt="Signature pasta" />
+        <!-- Dark-background pasta bowl — blends with mix-blend-mode -->
+        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=1000&h=1000&fit=crop&q=90" alt="Signature pasta dish" />
         <div class="steam"></div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT — image left, text right -->
   <section class="about">
     <div class="about-visual" style="background-image:url('https://images.unsplash.com/photo-1556910103-1c02745a30bf?w=900&h=700&fit=crop&q=85')"></div>
     <div class="about-content">
@@ -422,7 +409,6 @@
     </div>
   </section>
 
-  <!-- POPULAR PICKS -->
   <section class="picks">
     <div class="picks-header">
       <div class="picks-eyebrow">Our Signature</div>
@@ -467,7 +453,6 @@
     </div>
   </section>
 
-  <!-- TRUST STRIP -->
   <section class="trust-strip">
     <div class="strip-item">
       <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
@@ -487,7 +472,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-grid">
       <div class="footer-col">
