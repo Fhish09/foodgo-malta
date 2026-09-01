@@ -8,12 +8,14 @@
     "dev": "nodemon src/server.js",
     "seed": "node src/db/seed.js"
   },
-  "keywords": ["food-delivery", "malta"],
+  "keywords": [
+    "food-delivery",
+    "malta"
+  ],
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "bcryptjs": "^3.0.2",
-    "better-sqlite3": "^11.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -22,5 +24,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

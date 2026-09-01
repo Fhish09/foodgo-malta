@@ -1,13 +1,13 @@
-const Database = require('better-sqlite3');
+const { DatabaseSync } = require('node:sqlite');
 const path = require('path');
 
 const dbPath = path.join(__dirname, '..', '..', 'foodgo.db');
-const db = new Database(dbPath);
-
-db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
+const db = new DatabaseSync(dbPath);
 
 db.exec(`
+  PRAGMA journal_mode = WAL;
+  PRAGMA foreign_keys = ON;
+
   CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
     email TEXT UNIQUE NOT NULL,
