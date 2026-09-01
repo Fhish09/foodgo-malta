@@ -42,9 +42,11 @@ const restaurants = [
 
 const insertRest = db.prepare(`
   INSERT INTO restaurants (id, owner_id, name, category, description, town, delivery_fee)
-  VALUES (@id, @owner_id, @name, @category, @description, @town, @delivery_fee)
+  VALUES (?, ?, ?, ?, ?, ?, ?)
 `);
-for (const r of restaurants) insertRest.run(r);
+for (const r of restaurants) {
+  insertRest.run(r.id, r.owner_id, r.name, r.category, r.description, r.town, r.delivery_fee);
+}
 
 const menus = {
   'Valletta Pizza Co.': [
