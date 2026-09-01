@@ -61,7 +61,8 @@ router.post('/', authRequired, requireRole('customer'), (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `);
 
-  const tx = db.transaction(() => {
+  db.exec('BEGIN');
+  try {
     insertOrder.run(
       orderId,
       req.user.id,
@@ -79,8 +80,11 @@ router.post('/', authRequired, requireRole('customer'), (req, res) => {
     for (const it of resolved) {
       insertItem.run(uuid(), orderId, it.menu_item_id, it.name, it.unit_price, it.quantity, it.customizations);
     }
-  });
-  tx();
+    db.exec('COMMIT');
+  } catch (e) {
+    db.exec('ROLLBACK');
+    throw e;
+  }
 
   const order = db.prepare('SELECT * FROM orders WHERE id = ?').get(orderId);
   const orderItems = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(orderId);
