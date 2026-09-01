@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank you — FoodGo Malta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #120D0A; --bg-panel: #1A130E; --bg-card: #1E160F;
+      --gold: #C9975A; --gold-light: #E8B778;
+      --gold-grad: linear-gradient(135deg, #E8B778 0%, #C9975A 50%, #A67640 100%);
+      --text: #F5EFE6; --text-body: #B5AB9E; --text-muted: #8A8078;
+      --border: rgba(201,151,90,0.25); --border-soft: rgba(201,151,90,0.2);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      -webkit-font-smoothing: antialiased; line-height: 1.5;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    h1, h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; }
+    a { color: inherit; text-decoration: none; }
+    header {
+      padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo span { color: var(--gold); }
+    .logo-mark {
+      width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-mark svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 48px 24px;
+      background: radial-gradient(ellipse at 50% 30%, rgba(201,151,90,0.14) 0%, transparent 55%);
+    }
+    .panel {
+      max-width: 520px; width: 100%; text-align: center;
+      background: var(--bg-panel); border: 1px solid var(--border);
+      border-radius: 24px; padding: 48px 36px;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+    }
+    .check {
+      width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 24px;
+      background: rgba(201,151,90,0.15); border: 1.5px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      animation: pop 0.5s ease-out;
+    }
+    .check svg { width: 34px; height: 34px; stroke: var(--gold); fill: none; stroke-width: 2.2; }
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .eyebrow {
+      font-family: 'Petit Formal Script', cursive; color: var(--gold);
+      font-size: 1.25rem; margin-bottom: 10px;
+    }
+    h1 { font-size: clamp(1.7rem, 4vw, 2.2rem); margin-bottom: 14px; line-height: 1.2; }
+    .lead { color: var(--text-body); font-size: 0.95rem; margin-bottom: 28px; line-height: 1.7; }
+    .ref-box {
+      display: inline-block; padding: 10px 18px; border-radius: 999px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--text-body); margin-bottom: 28px;
+    }
+    .ref-box strong { color: var(--gold); }
+    .details {
+      text-align: left; background: var(--bg-card); border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 18px; margin-bottom: 28px; font-size: 0.85rem;
+    }
+    .details div { margin-bottom: 8px; color: var(--text-body); }
+    .details div:last-child { margin-bottom: 0; }
+    .details span { color: var(--text-muted); }
+    .enjoy {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem;
+      background: var(--gold-grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 28px;
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .btn-solid {
+      background: var(--gold); color: #14100C; border: none;
+      height: 44px; padding: 0 24px; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      font-family: 'Inter', sans-serif; display: inline-flex; align-items: center;
+    }
+    .btn-solid:hover { background: var(--gold-light); }
+    .btn-outline {
+      background: transparent; color: var(--text); border: 1px solid var(--gold);
+      height: 44px; padding: 0 22px; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 500; cursor: pointer;
+      font-family: 'Inter', sans-serif; display: inline-flex; align-items: center;
+    }
+    .btn-outline:hover { background: rgba(201,151,90,0.08); }
+    footer {
+      padding: 20px; text-align: center; font-size: 0.78rem; color: var(--text-muted);
+      border-top: 1px solid var(--border-soft);
+    }
+    @media (max-width: 560px) {
+      .panel { padding: 36px 22px; }
+      header { padding: 14px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg></span>
+      Food<span>Go</span>
+    </a>
+  </header>
+  <main>
+    <div class="panel">
+      <div class="check">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <div class="eyebrow">Order confirmed</div>
+      <h1 id="heading">Thank you!</h1>
+      <p class="lead" id="lead">
+        Your order is on its way. Our kitchen partners are preparing your meal with care —
+        it will arrive at your door soon.
+      </p>
+      <div class="ref-box">Order ref: <strong id="orderRef">—</strong></div>
+      <div class="details" id="details"></div>
+      <p class="enjoy">Enjoy your meal.</p>
+      <div class="actions">
+        <a href="menu.html" class="btn-outline">Order again</a>
+        <a href="index.html" class="btn-solid">Back home</a>
+      </div>
+    </div>
+  </main>
+  <footer>&copy; 2026 FoodGo Malta. Buon appetito.</footer>
+  <script>
+  (function () {
+    const order = JSON.parse(sessionStorage.getItem('foodgo_last_order') || 'null');
+    if (!order) {
+      document.getElementById('heading').textContent = 'Thank you!';
+      document.getElementById('lead').textContent =
+        'If you just placed an order, you are all set. Otherwise head back to the menu to order something delicious.';
+      return;
+    }
+    const first = (order.fullName || '').split(' ')[0] || 'there';
+    document.getElementById('heading').textContent = 'Thank you, ' + first + '!';
+    document.getElementById('orderRef').textContent = order.orderRef;
+    const payLabels = {
+      card: 'Card', apple_pay: 'Apple Pay', google_pay: 'Google Pay',
+      paypal: 'PayPal', cash: 'Cash on Delivery'
+    };
+    const items = (order.items || []).map(function (i) {
+      return i.quantity + '\u00D7 ' + i.name;
+    }).join(', ');
+    document.getElementById('details').innerHTML =
+      '<div><span>Delivering to:</span> ' + order.street + ', ' + order.town + '</div>' +
+      '<div><span>Contact:</span> ' + order.email + ' \u00B7 ' + order.phone + '</div>' +
+      '<div><span>When:</span> ' + (order.deliveryTime || 'ASAP') + '</div>' +
+      '<div><span>Payment:</span> ' + (payLabels[order.payment] || order.payment) + '</div>' +
+      (items ? '<div><span>Items:</span> ' + items + '</div>' : '') +
+      (order.totals ? '<div><span>Total:</span> \u20AC' + Number(order.totals.total).toFixed(2) + '</div>' : '');
+  })();
+  </script>
+</body>
+</html>
