@@ -1,2 +1,44 @@
 <!DOCTYPE html>
-<!-- see repo; links to menu.html -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodGo Malta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#120D0A; --gold:#C9975A; --text:#F5EFE6; --body:#B5AB9E; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:Inter,system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px;
+      background-image: radial-gradient(ellipse at 50% 20%, rgba(201,151,90,0.15), transparent 55%);
+    }
+    h1 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,5vw,3rem); margin:12px 0 16px; line-height:1.15; }
+    .eyebrow { font-family:'Petit Formal Script',cursive; color:var(--gold); font-size:1.3rem; }
+    p { color:var(--body); max-width:420px; margin:0 auto 32px; line-height:1.6; }
+    .btns { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+    a.btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      height:46px; padding:0 28px; border-radius:999px; font-weight:600; font-size:0.9rem;
+      text-decoration:none; transition: transform 0.2s, background 0.2s;
+    }
+    a.btn:hover { transform:scale(1.03); }
+    .primary { background:var(--gold); color:#14100C; }
+    .outline { border:1px solid var(--gold); color:var(--text); }
+    .logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:24px; }
+    .logo span { color:var(--gold); }
+    .hint { margin-top:40px; font-size:0.8rem; color:var(--body); opacity:0.8; }
+  </style>
+</head>
+<body>
+  <div class="logo">Food<span>Go</span> Malta</div>
+  <div class="eyebrow">Fresh. Bold. Unforgettable.</div>
+  <h1>Taste Food Like<br>Never Before</h1>
+  <p>Order from Malta kitchens today. Explore the menu, check out, and we deliver to your door.</p>
+  <div class="btns">
+    <a class="btn primary" href="menu.html">Explore Menu</a>
+    <a class="btn outline" href="checkout.html">Checkout</a>
+  </div>
+  <p class="hint">Flow: Menu → Checkout → Thank you</p>
+</body>
+</html>
