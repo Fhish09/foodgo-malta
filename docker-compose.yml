@@ -1,0 +1,24 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "4000:4000"
+    volumes:
+      - foodgo-data:/app/data
+    environment:
+      - PORT=4000
+      - JWT_SECRET=foodgo-malta-docker-secret
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  foodgo-data:
