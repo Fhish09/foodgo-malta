@@ -4,41 +4,188 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FoodGo Malta</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg:#120D0A; --gold:#C9975A; --text:#F5EFE6; --body:#B5AB9E; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body {
-      font-family:Inter,system-ui,sans-serif; background:var(--bg); color:var(--text); min-height:100vh;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:32px;
-      background-image: radial-gradient(ellipse at 50% 20%, rgba(201,151,90,0.15), transparent 55%);
-    }
-    h1 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(2rem,5vw,3rem); margin:12px 0 16px; line-height:1.15; }
-    .eyebrow { font-family:'Petit Formal Script',cursive; color:var(--gold); font-size:1.3rem; }
-    p { color:var(--body); max-width:420px; margin:0 auto 32px; line-height:1.6; }
-    .btns { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
-    a.btn {
-      display:inline-flex; align-items:center; justify-content:center;
-      height:46px; padding:0 28px; border-radius:999px; font-weight:600; font-size:0.9rem;
-      text-decoration:none; transition: transform 0.2s, background 0.2s;
-    }
-    a.btn:hover { transform:scale(1.03); }
-    .primary { background:var(--gold); color:#14100C; }
-    .outline { border:1px solid var(--gold); color:var(--text); }
-    .logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:24px; }
-    .logo span { color:var(--gold); }
-    .hint { margin-top:40px; font-size:0.8rem; color:var(--body); opacity:0.8; }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="logo">Food<span>Go</span> Malta</div>
-  <div class="eyebrow">Fresh. Bold. Unforgettable.</div>
-  <h1>Taste Food Like<br>Never Before</h1>
-  <p>Order from Malta kitchens today. Explore the menu, check out, and we deliver to your door.</p>
-  <div class="btns">
-    <a class="btn primary" href="menu.html">Explore Menu</a>
-    <a class="btn outline" href="checkout.html">Checkout</a>
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg>
+      </span>
+      Food<span>Go</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="#restaurants">About</a></li>
+      <li><a href="#restaurants">Locations</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+    <div class="header-right">
+      <a href="checkout.html" class="cart-btn" id="cartBtn" title="Cart" aria-label="Cart" style="text-decoration:none">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <a href="menu.html" class="nav-cta" id="orderNowBtn" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none">Order Now</a>
+      <button class="nav-toggle" type="button">Menu</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-left">
+      <div class="hero-eyebrow">Fresh. Bold. Unforgettable.</div>
+      <h1>Taste Food Like<br>Never Before<br><span class="gold">In Malta</span></h1>
+      <p class="hero-sub">Exceptional dishes from the finest kitchens across the islands, delivered with care.</p>
+      <div class="hero-btns">
+        <button class="btn-solid" type="button">Explore Menu <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <button class="btn-outline" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg> Our Story</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div><div class="trust-label">Free Delivery</div><div class="trust-sub">Orders above EUR 25</div></div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div><div class="trust-label">Fresh & Fast</div><div class="trust-sub">Prepared with care</div></div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div><div class="trust-label">Secure Payment</div><div class="trust-sub">100% safe</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-product">
+        <img src="hero.jpg" alt="Signature pizza" />
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="about-visual">
+      <img src="about-chef.jpg" alt="Chef" />
+    </div>
+    <div class="about-content">
+      <div class="about-eyebrow">About Us</div>
+      <h2>More Than Just<br><span class="gold">a Meal</span></h2>
+      <p class="about-text">We partner with Malta's finest kitchens to bring you dishes prepared with local ingredients, traditional techniques, and modern care — delivered to your door.</p>
+      <div class="checklist">
+        <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Locally Sourced Ingredients</span></div>
+        <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Sustainably Farmed</span></div>
+        <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Freshly Prepared Daily</span></div>
+        <div class="check-row"><div class="check-icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><span class="check-label">Chef Crafted</span></div>
+      </div>
+      <button class="btn-solid" type="button">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </section>
+
+  <section class="restaurants" id="restaurants">
+    <div class="restaurants-header">
+      <div class="restaurants-eyebrow">Order from Malta</div>
+      <h2>Restaurants</h2>
+      <div class="filter-row" id="categoryFilters">
+        <button class="filter-chip active" data-cat="">All</button>
+      </div>
+    </div>
+    <div class="rest-grid" id="restGrid">
+      <div class="api-status">Loading restaurants…</div>
+    </div>
+  </section>
+
+  <section class="picks" id="picks">
+    <div class="picks-header">
+      <div class="picks-eyebrow">Our Signature</div>
+      <h2>Popular Picks</h2>
+    </div>
+    <div class="picks-track">
+      <div class="api-status" id="picksStatus">Loading dishes…</div>
+    </div>
+    <div class="picks-cta">
+      <button class="btn-outline" type="button" id="viewFullMenu">View Full Menu <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div><div class="strip-label">Free Delivery</div><div class="strip-sub">On orders above EUR 25</div></div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div><div class="strip-label">Fresh & Fast</div><div class="strip-sub">Prepared with care</div></div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div><div class="strip-label">Secure Payment</div><div class="strip-sub">100% safe & secure</div></div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-icon"><svg viewBox="0 0 24 24"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></div>
+      <div><div class="strip-label">Loyalty Rewards</div><div class="strip-sub">Earn points every order</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Stay in the Loop</h3>
+        <p>Get exclusive offers and new restaurant drops delivered to your inbox.</p>
+        <div class="newsletter">
+          <input type="email" placeholder="Your email" />
+          <button type="button"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <div class="social-row">
+          <button class="social-btn" type="button"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></button>
+          <button class="social-btn" type="button"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></button>
+          <button class="social-btn" type="button"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="menu.html">Today's Menu</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="register.html">Register</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Customer Care</h3>
+        <ul class="footer-links">
+          <li><a href="#">Help Centre</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Refunds</a></li>
+          <li><a href="#">Contact Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>+356 2123 4567</span></div>
+        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>hello@foodgo.mt</span></div>
+        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Valletta, Malta</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 FoodGo Malta. All rights reserved.</div>
+  </footer>
+
+  <div class="modal-backdrop" id="menuModal">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div>
+          <h3 id="modalTitle">Restaurant</h3>
+          <p id="modalSub"></p>
+        </div>
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
   </div>
-  <p class="hint">Flow: Menu → Checkout → Thank you</p>
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
