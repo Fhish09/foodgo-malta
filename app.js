@@ -5,14 +5,6 @@
   }
 
   const API = (location.port === '8080') ? '/api' : 'http://localhost:4000/api';
-  const CATEGORY_IMAGES = {
-    'Pizza': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&q=80',
-    'Burgers': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=300&fit=crop&q=80',
-    'Maltese food': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop&q=80',
-    'Sushi': 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&h=300&fit=crop&q=80',
-    'Healthy bowls': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&q=80',
-    'Desserts': 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400&h=300&fit=crop&q=80'
-  };
 
   let restaurants = [];
   let cart = JSON.parse(localStorage.getItem('foodgo_cart') || '[]');
@@ -61,6 +53,11 @@
     return '\u20AC' + Number(n).toFixed(2);
   }
 
+  function foodImg(name, category, w) {
+    if (typeof resolveFoodImage === 'function') return resolveFoodImage(name, category, w || 400);
+    return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&h=300&q=80';
+  }
+
   function renderRestaurants(list) {
     const grid = document.getElementById('restGrid');
     if (!grid) return;
@@ -69,10 +66,10 @@
       return;
     }
     grid.innerHTML = list.map(function (r) {
+      var rImg = foodImg(r.category, r.category, 500);
       return '<article class="rest-card" data-id="' + r.id + '">' +
-        '<div class="rest-card-top">' +
+        '<div class="rest-card-top" style="background-image:linear-gradient(rgba(18,13,10,0.45),rgba(18,13,10,0.78)),url(\'' + rImg + '\')">' +
           '<span class="rest-badge">' + r.category + '</span>' +
-          '<span>' + (r.name || '?')[0] + '</span>' +
         '</div>' +
         '<div class="rest-body">' +
           '<div class="rest-name">' + r.name + '</div>' +
@@ -129,9 +126,11 @@
         return;
       }
       body.innerHTML = menu.map(function (item) {
-        return '<div class="menu-item"><div>' +
-          '<div class="menu-item-name">' + item.name + '</div>' +
-          '<div class="menu-item-desc">' + (item.description || item.category || '') + '</div>' +
+        var thumb = foodImg(item.name, item.category, 120);
+        return '<div class="menu-item"><div style="display:flex;gap:12px;align-items:center;min-width:0">' +
+          '<div style="width:52px;height:52px;border-radius:10px;background-size:cover;background-position:center;flex-shrink:0;background-image:url(\'' + thumb + '\')"></div>' +
+          '<div style="min-width:0"><div class="menu-item-name">' + item.name + '</div>' +
+          '<div class="menu-item-desc">' + (item.description || item.category || '') + '</div></div>' +
           '</div><div class="menu-item-right">' +
           '<span class="menu-item-price">' + formatEUR(item.price) + '</span>' +
           '<button class="add-btn" type="button" data-id="' + item.id + '" aria-label="Add">+</button>' +
@@ -160,15 +159,15 @@
     if (!track) return;
     try {
       const picks = [];
-      for (let i = 0; i < Math.min(4, restaurants.length); i++) {
+      for (let i = 0; i < Math.min(6, restaurants.length); i++) {
         const r = restaurants[i];
         const res = await fetch(API + '/restaurants/' + r.id);
         if (!res.ok) continue;
         const data = await res.json();
-        (data.menu || []).filter(function (m) { return m.price >= 8; }).slice(0, 1).forEach(function (m) {
+        (data.menu || []).filter(function (m) { return m.price >= 7; }).slice(0, 1).forEach(function (m) {
           picks.push({
             id: m.id, name: m.name, price: m.price,
-            restaurant_id: r.id, restaurant_name: r.name, category: r.category
+            restaurant_id: r.id, restaurant_name: r.name, category: m.category || r.category
           });
         });
       }
@@ -177,7 +176,7 @@
         return;
       }
       track.innerHTML = picks.map(function (p) {
-        const img = CATEGORY_IMAGES[p.category] || CATEGORY_IMAGES['Pizza'];
+        const img = foodImg(p.name, p.category, 400);
         return '<div class="pick-card" data-rest="' + p.restaurant_id + '">' +
           '<div class="pick-img" style="background-image:url(\'' + img + '\')"></div>' +
           '<div class="pick-body">' +
@@ -291,7 +290,7 @@
         toast('Enter a valid email to subscribe');
         return;
       }
-      toast('Thanks — you are on the list');
+      toast('Thanks \u2014 you are on the list');
       if (input) input.value = '';
     });
   }
