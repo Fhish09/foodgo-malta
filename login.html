@@ -3,156 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign in — FoodGo Malta</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Login — FoodGo Malta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #120D0A; --bg-panel: #1A130E; --bg-card: #1E160F;
-      --gold: #C9975A; --gold-light: #E8B778;
+      --bg: #120D0A; --bg-card: #1E160F; --gold: #C9975A; --gold-light: #E8B778;
       --text: #F5EFE6; --text-body: #B5AB9E; --text-muted: #8A8078;
-      --border: rgba(201,151,90,0.25);
+      --border: rgba(201,151,90,0.25); --error: #e07070;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg); color: var(--text);
-      min-height: 100vh; display: flex; flex-direction: column;
-      -webkit-font-smoothing: antialiased;
-    }
-    header {
-      padding: 16px 24px;
-      border-bottom: 1px solid rgba(201,151,90,0.2);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .logo {
-      font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
-      display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text);
-    }
-    .logo span { color: var(--gold); }
-    .logo-mark {
-      width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .logo-mark svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
-    main {
-      flex: 1; display: flex; align-items: center; justify-content: center;
-      padding: 32px 16px;
-      background: radial-gradient(ellipse at 50% 0%, rgba(201,151,90,0.12) 0%, transparent 55%);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif;
+      background-image: radial-gradient(ellipse at 50% 0%, rgba(201,151,90,0.12), transparent 55%);
+      padding: 24px;
     }
     .card {
-      width: 100%; max-width: 400px; background: var(--bg-panel);
-      border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      width: 100%; max-width: 420px; background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px;
     }
-    .eyebrow {
-      font-family: 'Petit Formal Script', cursive; color: var(--gold);
-      font-size: 1.1rem; margin-bottom: 6px;
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; text-align: center; margin-bottom: 8px; }
+    .logo span { color: var(--gold); }
+    .sub { text-align: center; color: var(--text-body); font-size: 0.9rem; margin-bottom: 28px; }
+    label { display: block; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; }
+    input {
+      width: 100%; height: 44px; border-radius: 10px; border: 1px solid var(--border);
+      background: rgba(18,13,10,0.6); color: var(--text); padding: 0 14px; margin-bottom: 16px; font-family: inherit;
     }
-    h1 { font-family: 'Playfair Display', serif; font-size: 1.75rem; margin-bottom: 8px; }
-    .sub { color: var(--text-body); font-size: 0.9rem; margin-bottom: 24px; line-height: 1.5; }
-    .field { margin-bottom: 14px; }
-    .field label {
-      display: block; font-size: 0.75rem; color: var(--text-muted);
-      margin-bottom: 6px; font-weight: 500;
-    }
-    .field input {
-      width: 100%; padding: 12px 14px; background: var(--bg-card);
-      border: 1px solid rgba(201,151,90,0.3); border-radius: 12px;
-      color: var(--text); font-size: 0.9rem; font-family: inherit; outline: none;
-    }
-    .field input:focus { border-color: var(--gold); }
-    .field input::placeholder { color: var(--text-muted); }
     .btn {
-      width: 100%; height: 48px; margin-top: 10px; border: none; border-radius: 999px;
-      background: var(--gold); color: #14100C; font-weight: 600; font-size: 0.9rem;
-      cursor: pointer; font-family: inherit; transition: background 0.2s, transform 0.15s;
+      width: 100%; height: 46px; border: none; border-radius: 999px;
+      background: var(--gold); color: #14100C; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 8px;
     }
-    .btn:hover { background: var(--gold-light); }
-    .btn:active { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn:disabled { opacity: 0.6; }
     .error {
-      color: #e07070; font-size: 0.82rem; margin-top: 12px;
-      display: none; text-align: center;
+      display: none; background: rgba(224,112,112,0.12); border: 1px solid rgba(224,112,112,0.35);
+      color: var(--error); padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; margin-bottom: 16px;
     }
     .error.show { display: block; }
-    .foot {
-      text-align: center; margin-top: 22px; font-size: 0.85rem; color: var(--text-body);
-    }
-    .foot a { color: var(--gold); text-decoration: none; font-weight: 500; }
-    .foot a:hover { text-decoration: underline; }
-    @media (max-width: 480px) {
-      .card { padding: 28px 20px; border-radius: 16px; }
-      h1 { font-size: 1.5rem; }
-    }
+    .foot { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); }
+    .foot a { color: var(--gold); }
   </style>
 </head>
 <body>
-  <header>
-    <a href="login.html" class="logo">
-      <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg></span>
-      Food<span>Go</span>
-    </a>
-  </header>
-  <main>
-    <div class="card">
-      <div class="eyebrow">Welcome</div>
-      <h1>Sign in</h1>
-      <p class="sub">Sign in to browse restaurants and place delivery orders across Malta.</p>
-      <form id="loginForm" novalidate>
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" type="email" placeholder="Email address" required autocomplete="email" />
-        </div>
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" placeholder="Password" required autocomplete="current-password" />
-        </div>
-        <button class="btn" type="submit" id="btn">Sign in</button>
-        <p class="error" id="err" role="alert"></p>
-      </form>
-      <p class="foot">New here? <a href="register.html">Create an account</a></p>
-    </div>
-  </main>
+  <div class="card">
+    <div class="logo">Food<span>Go</span> Malta</div>
+    <p class="sub">Sign in to continue</p>
+    <div class="error" id="error"></div>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="email" required placeholder="admin@foodgo.mt" />
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required />
+      <button class="btn" type="submit" id="submitBtn">Sign in</button>
+    </form>
+    <p class="foot">New here? <a href="register.html">Create an account</a></p>
+  </div>
   <script>
-  (function () {
-    if (localStorage.getItem('foodgo_token')) {
-      window.location.replace('index.html');
-      return;
+    var API = (location.port === '8080')
+      ? '/api'
+      : (location.protocol + '//' + (location.hostname || 'localhost') + ':4000/api');
+
+    function goByRole(user) {
+      if (user && user.role === 'admin') {
+        window.location.replace('admin.html');
+      } else if (user && user.role === 'driver') {
+        window.location.replace('driver.html');
+      } else {
+        window.location.replace('index.html');
+      }
     }
-    var API = (location.port === '8080') ? '/api' : 'http://localhost:4000/api';
+
+    if (localStorage.getItem('foodgo_token')) {
+      try {
+        goByRole(JSON.parse(localStorage.getItem('foodgo_user') || '{}'));
+      } catch (e) {
+        window.location.replace('index.html');
+      }
+    }
+
     document.getElementById('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      var err = document.getElementById('err');
+      var err = document.getElementById('error');
+      var btn = document.getElementById('submitBtn');
       err.classList.remove('show');
-      var email = document.getElementById('email').value.trim();
-      var password = document.getElementById('password').value;
-      if (!email || !password) {
-        err.textContent = 'Please enter your email and password.';
-        err.classList.add('show');
-        return;
-      }
-      var btn = document.getElementById('btn');
       btn.disabled = true;
       btn.textContent = 'Signing in…';
       try {
         var res = await fetch(API + '/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, password: password })
+          body: JSON.stringify({
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value
+          })
         });
-        var data = await res.json().catch(function () { return {}; });
-        if (!res.ok) throw new Error(data.error || 'Invalid email or password');
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Login failed');
         localStorage.setItem('foodgo_token', data.token);
-        localStorage.setItem('foodgo_user', JSON.stringify(data.user || {}));
-        window.location.href = 'index.html';
+        localStorage.setItem('foodgo_user', JSON.stringify(data.user));
+        goByRole(data.user);
       } catch (ex) {
-        err.textContent = ex.message || 'Could not sign in. Check your connection and try again.';
+        err.textContent = ex.message;
         err.classList.add('show');
         btn.disabled = false;
         btn.textContent = 'Sign in';
       }
     });
-  })();
   </script>
 </body>
 </html>

@@ -1,1 +1,289 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Control Center — FoodGo Malta</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0c0f; --panel: #10141a; --card: #151b24; --line: rgba(120,160,200,0.14);
+      --text: #e8eef6; --muted: #7d8fa3; --cyan: #3dd0e8; --green: #3dd68c; --red: #f05555; --amber: #f0b429;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'IBM Plex Sans', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .rail { flex-direction: row; flex-wrap: wrap; } }
+    .rail { background: var(--panel); border-right: 1px solid var(--line); padding: 16px 12px; display: flex; flex-direction: column; gap: 6px; }
+    .brand { font-weight: 700; margin-bottom: 16px; padding: 0 8px; }
+    .brand span { color: var(--cyan); }
+    .rail-btn { text-align: left; background: transparent; border: none; color: var(--muted); padding: 10px 12px; border-radius: 8px; cursor: pointer; font: inherit; }
+    .rail-btn:hover, .rail-btn.active { background: rgba(61,208,232,0.1); color: var(--text); }
+    .main { padding: 20px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    h1 { font-size: 1.25rem; margin-bottom: 6px; }
+    .sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 18px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+    .stat b { display: block; font-size: 1.4rem; color: var(--cyan); }
+    .stat span { font-size: 0.75rem; color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 500; }
+    .btn { height: 32px; padding: 0 12px; border-radius: 8px; border: none; cursor: pointer; font: inherit; font-size: 0.78rem; font-weight: 600; }
+    .btn-cyan { background: var(--cyan); color: #041018; }
+    .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+    .btn-green { background: var(--green); color: #041810; }
+    .btn-red { background: var(--red); color: #fff; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .dot.on { background: var(--green); box-shadow: 0 0 8px var(--green); }
+    .dot.off { background: var(--red); box-shadow: 0 0 8px var(--red); }
+    .toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--cyan); padding: 10px 16px; border-radius: 8px; opacity: 0; transition: 0.2s; z-index: 50; }
+    .toast.show { opacity: 1; }
+    .tools { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    input, select { height: 34px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--text); padding: 0 10px; font: inherit; }
+    .live { font-size: 0.75rem; color: var(--green); margin-left: auto; }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="rail">
+      <div class="brand">Food<span>Go</span> Ops</div>
+      <button class="rail-btn active" data-panel="overview" type="button">Overview</button>
+      <button class="rail-btn" data-panel="kitchen" type="button">Kitchen menu</button>
+      <button class="rail-btn" data-panel="dispatch" type="button">Dispatch</button>
+      <button class="rail-btn" data-panel="fleet" type="button">Fleet</button>
+      <button class="rail-btn" data-panel="pricing" type="button">Promos</button>
+      <button class="rail-btn" data-panel="chat" type="button">Rider chat</button>
+      <button class="btn btn-ghost" type="button" id="btnLogout" style="margin-top:auto">Sign out</button>
+    </aside>
+    <div class="main">
+      <div class="live" id="livePill">● Connecting…</div>
+
+      <section class="panel active" id="panel-overview">
+        <h1>Control center</h1>
+        <p class="sub">Background ops — menu availability, dispatch, promos</p>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <section class="panel" id="panel-kitchen">
+        <h1>Kitchen menu</h1>
+        <p class="sub">Toggle dishes available (green) or finished (red)</p>
+        <div class="tools">
+          <select id="filterRest"><option value="">All restaurants</option></select>
+          <button class="btn btn-ghost" type="button" id="btnRefreshMenu">Refresh</button>
+        </div>
+        <table><thead><tr><th>Status</th><th>Dish</th><th>Restaurant</th><th>Price</th><th></th></tr></thead>
+        <tbody id="menuBody"></tbody></table>
+      </section>
+
+      <section class="panel" id="panel-dispatch">
+        <h1>Dispatch</h1>
+        <p class="sub">Assign riders and send customer addresses</p>
+        <table><thead><tr><th>Order</th><th>Customer</th><th>Address</th><th>Status</th><th>Rider</th><th></th></tr></thead>
+        <tbody id="orderBody"></tbody></table>
+      </section>
+
+      <section class="panel" id="panel-fleet">
+        <h1>Fleet</h1>
+        <table><thead><tr><th>Name</th><th>Vehicle</th><th>Phone</th><th>Status</th></tr></thead>
+        <tbody id="driverBody"></tbody></table>
+      </section>
+
+      <section class="panel" id="panel-pricing">
+        <h1>Promos</h1>
+        <table><thead><tr><th>Code</th><th>Title</th><th>Type</th><th>Value</th><th>Active</th></tr></thead>
+        <tbody id="promoBody"></tbody></table>
+      </section>
+
+      <section class="panel" id="panel-chat">
+        <h1>Rider chat</h1>
+        <p class="sub">Ops channel with delivery personnel</p>
+        <div id="chatLog" style="height:280px;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;font-size:0.85rem"></div>
+        <form id="chatForm" style="display:flex;gap:8px">
+          <input id="chatInput" placeholder="Message riders…" style="flex:1" />
+          <button class="btn btn-cyan" type="submit">Send</button>
+        </form>
+      </section>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" crossorigin="anonymous"></script>
+  <script>
+  (function () {
+    var API = (location.port === '8080') ? '/api' : (location.protocol + '//' + (location.hostname || 'localhost') + ':4000/api');
+    var token = localStorage.getItem('foodgo_token');
+    var user = null;
+    try { user = JSON.parse(localStorage.getItem('foodgo_user') || 'null'); } catch (e) {}
+    if (!token || !user || user.role !== 'admin') {
+      window.location.replace('login.html');
+      return;
+    }
+
+    function headers() {
+      return { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token };
+    }
+    function api(path, opts) {
+      return fetch(API + path, Object.assign({ headers: headers() }, opts || {})).then(function (res) {
+        return res.json().then(function (data) {
+          if (!res.ok) throw new Error(data.error || 'Request failed');
+          return data;
+        });
+      });
+    }
+    function toast(m) {
+      var el = document.getElementById('toast');
+      el.textContent = m; el.classList.add('show');
+      setTimeout(function () { el.classList.remove('show'); }, 2200);
+    }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    document.getElementById('btnLogout').onclick = function () {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    };
+
+    document.querySelectorAll('.rail-btn').forEach(function (btn) {
+      btn.onclick = function () {
+        document.querySelectorAll('.rail-btn').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+        load(btn.dataset.panel);
+      };
+    });
+
+    function loadOverview() {
+      return api('/admin/stats').then(function (s) {
+        document.getElementById('stats').innerHTML =
+          '<div class="stat"><b>' + s.orders + '</b><span>Orders</span></div>' +
+          '<div class="stat"><b>€' + Number(s.revenue).toFixed(0) + '</b><span>Revenue</span></div>' +
+          '<div class="stat"><b>' + s.menuItems + '</b><span>Menu items</span></div>' +
+          '<div class="stat"><b>' + s.users + '</b><span>Users</span></div>' +
+          '<div class="stat"><b>' + s.activePromos + '</b><span>Active promos</span></div>';
+      });
+    }
+
+    function loadKitchen() {
+      return api('/admin/menu').then(function (data) {
+        var items = data.items || [];
+        var rests = {};
+        items.forEach(function (it) { rests[it.restaurant_name] = true; });
+        var sel = document.getElementById('filterRest');
+        var cur = sel.value;
+        sel.innerHTML = '<option value="">All restaurants</option>' +
+          Object.keys(rests).map(function (n) { return '<option value="' + esc(n) + '">' + esc(n) + '</option>'; }).join('');
+        sel.value = cur;
+        var filter = sel.value;
+        var rows = items.filter(function (it) { return !filter || it.restaurant_name === filter; });
+        document.getElementById('menuBody').innerHTML = rows.map(function (it) {
+          var on = Number(it.is_available) === 1;
+          return '<tr><td><span class="dot ' + (on ? 'on' : 'off') + '"></span>' + (on ? 'Available' : 'Finished') + '</td>' +
+            '<td>' + esc(it.name) + '</td><td>' + esc(it.restaurant_name) + '</td>' +
+            '<td>€' + Number(it.price).toFixed(2) + '</td>' +
+            '<td><button class="btn ' + (on ? 'btn-red' : 'btn-green') + '" data-id="' + it.id + '" data-on="' + (on ? '0' : '1') + '">' +
+            (on ? 'Mark finished' : 'Mark available') + '</button></td></tr>';
+        }).join('') || '<tr><td colspan="5">No items</td></tr>';
+        document.querySelectorAll('#menuBody [data-id]').forEach(function (btn) {
+          btn.onclick = function () {
+            api('/admin/menu/' + btn.dataset.id, {
+              method: 'PATCH',
+              body: JSON.stringify({ is_available: Number(btn.dataset.on) })
+            }).then(function () { toast('Updated'); loadKitchen(); }).catch(function (e) { toast(e.message); });
+          };
+        });
+      });
+    }
+    document.getElementById('filterRest').onchange = function () { loadKitchen(); };
+    document.getElementById('btnRefreshMenu').onclick = function () { loadKitchen(); };
+
+    var driversCache = [];
+    function loadDispatch() {
+      return Promise.all([api('/admin/orders'), api('/admin/drivers')]).then(function (arr) {
+        var orders = arr[0].orders || [];
+        driversCache = arr[1].drivers || [];
+        document.getElementById('orderBody').innerHTML = orders.map(function (o) {
+          var opts = '<option value="">— assign —</option>' +
+            driversCache.filter(function (d) { return d.active; }).map(function (d) {
+              return '<option value="' + d.id + '"' + (o.driver_id === d.id ? ' selected' : '') + '>' + esc(d.name) + '</option>';
+            }).join('');
+          return '<tr><td class="mono">#' + o.id.slice(0, 8) + '</td>' +
+            '<td>' + esc(o.customer_name) + '</td>' +
+            '<td>' + esc(o.delivery_street || '') + ', ' + esc(o.delivery_town || '') + '</td>' +
+            '<td>' + esc(o.status) + '</td>' +
+            '<td><select data-assign="' + o.id + '">' + opts + '</select></td>' +
+            '<td><button class="btn btn-cyan" data-do-assign="' + o.id + '">Send</button></td></tr>';
+        }).join('') || '<tr><td colspan="6">No orders</td></tr>';
+        document.querySelectorAll('[data-do-assign]').forEach(function (btn) {
+          btn.onclick = function () {
+            var sel = document.querySelector('[data-assign="' + btn.dataset.doAssign + '"]');
+            api('/admin/orders/' + btn.dataset.doAssign + '/assign', {
+              method: 'POST',
+              body: JSON.stringify({ driver_id: sel.value || null })
+            }).then(function () { toast('Assigned — rider gets the address'); loadDispatch(); }).catch(function (e) { toast(e.message); });
+          };
+        });
+      });
+    }
+
+    function loadFleet() {
+      return api('/admin/drivers').then(function (data) {
+        document.getElementById('driverBody').innerHTML = (data.drivers || []).map(function (d) {
+          return '<tr><td>' + esc(d.name) + '</td><td>' + esc(d.vehicle) + '</td><td>' + esc(d.phone) + '</td><td>' + esc(d.status) + '</td></tr>';
+        }).join('') || '<tr><td colspan="4">No drivers</td></tr>';
+      });
+    }
+
+    function loadPromos() {
+      return api('/admin/promos').then(function (data) {
+        document.getElementById('promoBody').innerHTML = (data.promos || []).map(function (p) {
+          return '<tr><td>' + esc(p.code) + '</td><td>' + esc(p.title) + '</td><td>' + esc(p.discount_type) + '</td><td>' + p.discount_value + '</td><td>' + (p.active ? 'Yes' : 'No') + '</td></tr>';
+        }).join('') || '<tr><td colspan="5">No promos</td></tr>';
+      });
+    }
+
+    function loadChat() {
+      return api('/chat/ops').then(function (data) {
+        var log = document.getElementById('chatLog');
+        var messages = data.messages || [];
+        log.innerHTML = messages.length ? messages.map(function (m) {
+          return '<div style="margin-bottom:8px"><div style="font-size:0.7rem;color:var(--muted)">' + esc(m.sender_name || m.sender_role) + '</div>' +
+            '<div>' + esc(m.body) + '</div></div>';
+        }).join('') : '<div style="color:var(--muted)">No messages yet</div>';
+        log.scrollTop = log.scrollHeight;
+      });
+    }
+    document.getElementById('chatForm').onsubmit = function (e) {
+      e.preventDefault();
+      var input = document.getElementById('chatInput');
+      var body = input.value.trim();
+      if (!body) return;
+      api('/chat', { method: 'POST', body: JSON.stringify({ body: body }) })
+        .then(function () { input.value = ''; loadChat(); })
+        .catch(function (err) { toast(err.message); });
+    };
+
+    function load(name) {
+      var map = { overview: loadOverview, kitchen: loadKitchen, dispatch: loadDispatch, fleet: loadFleet, pricing: loadPromos, chat: loadChat };
+      if (map[name]) map[name]().catch(function (e) { toast(e.message); });
+    }
+
+    if (typeof io !== 'undefined') {
+      var socketUrl = (location.port === '8080') ? location.origin : (location.protocol + '//' + (location.hostname || 'localhost') + ':4000');
+      var socket = io(socketUrl, { path: '/socket.io', transports: ['websocket', 'polling'] });
+      socket.on('connect', function () {
+        socket.emit('join', 'admin');
+        document.getElementById('livePill').textContent = '● Live';
+      });
+      socket.on('order:created', function () { toast('New order'); load('dispatch'); });
+      socket.on('menu:updated', function () { load('kitchen'); });
+    }
+
+    loadOverview().catch(function (e) { toast(e.message); });
+  })();
+  </script>
+</body>
+</html>
