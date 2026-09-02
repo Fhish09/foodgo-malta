@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login — FoodGo Malta</title>
+  <title>Sign in — FoodGo Malta</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -20,11 +20,12 @@
       -webkit-font-smoothing: antialiased;
     }
     header {
-      padding: 16px 40px; border-bottom: 1px solid rgba(201,151,90,0.2);
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(201,151,90,0.2);
       display: flex; align-items: center; justify-content: space-between;
     }
     .logo {
-      font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
+      font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
       display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text);
     }
     .logo span { color: var(--gold); }
@@ -33,22 +34,27 @@
       display: flex; align-items: center; justify-content: center;
     }
     .logo-mark svg { width: 12px; height: 12px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
-    .back { font-size: 0.85rem; color: var(--text-body); text-decoration: none; }
-    .back:hover { color: var(--gold); }
     main {
-      flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px;
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 32px 16px;
       background: radial-gradient(ellipse at 50% 0%, rgba(201,151,90,0.12) 0%, transparent 55%);
     }
     .card {
-      width: 100%; max-width: 420px; background: var(--bg-panel);
-      border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px;
+      width: 100%; max-width: 400px; background: var(--bg-panel);
+      border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.35);
     }
-    .eyebrow { font-family: 'Petit Formal Script', cursive; color: var(--gold); font-size: 1.15rem; margin-bottom: 8px; }
-    h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 8px; }
-    .sub { color: var(--text-body); font-size: 0.9rem; margin-bottom: 28px; }
-    .field { margin-bottom: 16px; }
-    .field label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+    .eyebrow {
+      font-family: 'Petit Formal Script', cursive; color: var(--gold);
+      font-size: 1.1rem; margin-bottom: 6px;
+    }
+    h1 { font-family: 'Playfair Display', serif; font-size: 1.75rem; margin-bottom: 8px; }
+    .sub { color: var(--text-body); font-size: 0.9rem; margin-bottom: 24px; line-height: 1.5; }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: 0.75rem; color: var(--text-muted);
+      margin-bottom: 6px; font-weight: 500;
+    }
     .field input {
       width: 100%; padding: 12px 14px; background: var(--bg-card);
       border: 1px solid rgba(201,151,90,0.3); border-radius: 12px;
@@ -57,78 +63,90 @@
     .field input:focus { border-color: var(--gold); }
     .field input::placeholder { color: var(--text-muted); }
     .btn {
-      width: 100%; height: 48px; margin-top: 8px; border: none; border-radius: 999px;
+      width: 100%; height: 48px; margin-top: 10px; border: none; border-radius: 999px;
       background: var(--gold); color: #14100C; font-weight: 600; font-size: 0.9rem;
-      cursor: pointer; font-family: inherit; transition: background 0.2s;
+      cursor: pointer; font-family: inherit; transition: background 0.2s, transform 0.15s;
     }
     .btn:hover { background: var(--gold-light); }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .error { color: #e07070; font-size: 0.82rem; margin-top: 12px; display: none; }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .error {
+      color: #e07070; font-size: 0.82rem; margin-top: 12px;
+      display: none; text-align: center;
+    }
     .error.show { display: block; }
-    .foot { text-align: center; margin-top: 22px; font-size: 0.85rem; color: var(--text-body); }
-    .foot a { color: var(--gold); text-decoration: none; }
-    .demo {
-      margin-top: 20px; padding: 12px 14px; border-radius: 12px;
-      background: rgba(201,151,90,0.08); border: 1px solid var(--border);
-      font-size: 0.75rem; color: var(--text-muted); line-height: 1.5;
+    .foot {
+      text-align: center; margin-top: 22px; font-size: 0.85rem; color: var(--text-body);
+    }
+    .foot a { color: var(--gold); text-decoration: none; font-weight: 500; }
+    .foot a:hover { text-decoration: underline; }
+    @media (max-width: 480px) {
+      .card { padding: 28px 20px; border-radius: 16px; }
+      h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
   <header>
-    <a href="index.html" class="logo">
+    <a href="login.html" class="logo">
       <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg></span>
       Food<span>Go</span>
     </a>
-    <a href="index.html" class="back">\u2190 Home</a>
   </header>
   <main>
     <div class="card">
-      <div class="eyebrow">Welcome back</div>
+      <div class="eyebrow">Welcome</div>
       <h1>Sign in</h1>
-      <p class="sub">Access your orders and saved addresses.</p>
-      <form id="loginForm">
+      <p class="sub">Sign in to browse restaurants and place delivery orders across Malta.</p>
+      <form id="loginForm" novalidate>
         <div class="field">
           <label for="email">Email</label>
-          <input id="email" type="email" placeholder="you@example.com" required autocomplete="email" />
+          <input id="email" type="email" placeholder="Email address" required autocomplete="email" />
         </div>
         <div class="field">
           <label for="password">Password</label>
-          <input id="password" type="password" placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" required autocomplete="current-password" />
+          <input id="password" type="password" placeholder="Password" required autocomplete="current-password" />
         </div>
         <button class="btn" type="submit" id="btn">Sign in</button>
-        <p class="error" id="err"></p>
+        <p class="error" id="err" role="alert"></p>
       </form>
-      <p class="foot">No account? <a href="register.html">Create one</a></p>
-      <div class="demo">Demo: customer@example.com / customer123<br>restaurant@example.com / restaurant123 \u00B7 admin@example.com / admin123</div>
+      <p class="foot">New here? <a href="register.html">Create an account</a></p>
     </div>
   </main>
   <script>
   (function () {
-    const API = (location.port === '8080') ? '/api' : 'http://localhost:4000/api';
+    if (localStorage.getItem('foodgo_token')) {
+      window.location.replace('index.html');
+      return;
+    }
+    var API = (location.port === '8080') ? '/api' : 'http://localhost:4000/api';
     document.getElementById('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const err = document.getElementById('err');
+      var err = document.getElementById('err');
       err.classList.remove('show');
-      const btn = document.getElementById('btn');
+      var email = document.getElementById('email').value.trim();
+      var password = document.getElementById('password').value;
+      if (!email || !password) {
+        err.textContent = 'Please enter your email and password.';
+        err.classList.add('show');
+        return;
+      }
+      var btn = document.getElementById('btn');
       btn.disabled = true;
-      btn.textContent = 'Signing in\u2026';
+      btn.textContent = 'Signing in…';
       try {
-        const res = await fetch(API + '/auth/login', {
+        var res = await fetch(API + '/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: document.getElementById('email').value.trim(),
-            password: document.getElementById('password').value
-          })
+          body: JSON.stringify({ email: email, password: password })
         });
-        const data = await res.json().catch(function () { return {}; });
-        if (!res.ok) throw new Error(data.error || 'Login failed');
+        var data = await res.json().catch(function () { return {}; });
+        if (!res.ok) throw new Error(data.error || 'Invalid email or password');
         localStorage.setItem('foodgo_token', data.token);
         localStorage.setItem('foodgo_user', JSON.stringify(data.user || {}));
         window.location.href = 'index.html';
       } catch (ex) {
-        err.textContent = ex.message || 'Could not sign in. Is the API running?';
+        err.textContent = ex.message || 'Could not sign in. Check your connection and try again.';
         err.classList.add('show');
         btn.disabled = false;
         btn.textContent = 'Sign in';
