@@ -1,62 +1,95 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { v4: uuid } = require('uuid');
 const db = require('../db/schema');
-const { authRequired } = require('../middleware/auth');
+const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-function signToken(user) {
-  return jwt.sign(
-    { id: user.id, email: user.email, role: user.role, name: user.name },
-    process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-  );
-}
+router.post('/register', function (req, res) {
+  try {
+    const body = req.body || {};
+    const email = body.email;
+    const password = body.password;
+    const name = body.name;
+    const phone = body.phone;
+    if (!email || !password || !name) {
+      return res.status(400).json({ error: 'Name, email and password are required' });
+    }
+    if (String(password).length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters' });
+    }
+    const emailNorm = String(email).trim().toLowerCase();
+    const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(emailNorm);
+    if (existing) {
+      return res.status(409).json({ error: 'Email already registered' });
+    }
 
-router.post('/register', (req, res) => {
-  const { email, password, name, role = 'customer', phone } = req.body || {};
-  if (!email || !password || !name) {
-    return res.status(400).json({ error: 'email, password and name are required' });
-  }
-  const allowed = ['customer', 'restaurant'];
-  if (!allowed.includes(role)) {
-    return res.status(400).json({ error: 'role must be customer or restaurant' });
-  }
-  const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email.toLowerCase());
-  if (existing) {
-    return res.status(409).json({ error: 'Email already registered' });
-  }
-  const id = uuid();
-  const password_hash = bcrypt.hashSync(password, 10);
-  db.prepare(
-    `INSERT INTO users (id, email, password_hash, name, role, phone) VALUES (?, ?, ?, ?, ?, ?)`
-  ).run(id, email.toLowerCase(), password_hash, name, role, phone || null);
+    const id = uuid();
+    const password_hash = bcrypt.hashSync(String(password), 10);
+    db.prepare(
+      'INSERT INTO users (id, email, password_hash, name, role, phone) VALUES (?, ?, ?, ?, \'customer\', ?)'
+    ).run(id, emailNorm, password_hash, String(name).trim(), phone ? String(phone).trim() : null);
 
-  const user = { id, email: email.toLowerCase(), role, name };
-  const token = signToken(user);
-  res.status(201).json({ user, token });
+    const user = db.prepare(
+      'SELECT id, email, name, role, phone, created_at FROM users WHERE id = ?'
+    ).get(id);
+
+    const token = auth.signToken(user);
+    res.status(201).json({ token: token, user: user });
+  } catch (err) {
+    console.error('Register error:', err);
+    res.status(500).json({ error: 'Registration failed' });
+  }
 });
 
-router.post('/login', (req, res) => {
-  const { email, password } = req.body || {};
-  if (!email || !password) {
-    return res.status(400).json({ error: 'email and password are required' });
+router.post('/login', function (req, res) {
+  try {
+    const body = req.body || {};
+    const email = body.email;
+    const password = body.password;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
+    const emailNorm = String(email).trim().toLowerCase();
+    const row = db.prepare('SELECT * FROM users WHERE email = ?').get(emailNorm);
+    if (!row) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+    const ok = bcrypt.compareSync(String(password), row.password_hash);
+    if (!ok) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    const user = {
+      id: row.id,
+      email: row.email,
+      name: row.name,
+      role: row.role,
+      phone: row.phone,
+      created_at: row.created_at
+    };
+    const token = auth.signToken(user);
+    res.json({ token: token, user: user });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ error: 'Login failed' });
   }
-  const row = db.prepare('SELECT * FROM users WHERE email = ?').get(email.toLowerCase());
-  if (!row || !bcrypt.compareSync(password, row.password_hash)) {
-    return res.status(401).json({ error: 'Invalid email or password' });
-  }
-  const user = { id: row.id, email: row.email, role: row.role, name: row.name };
-  const token = signToken(user);
-  res.json({ user, token });
 });
 
-router.get('/me', authRequired, (req, res) => {
-  const row = db.prepare('SELECT id, email, name, role, phone, created_at FROM users WHERE id = ?').get(req.user.id);
-  if (!row) return res.status(404).json({ error: 'User not found' });
-  res.json({ user: row });
+router.get('/me', function (req, res) {
+  auth.requireAuth(req, res, function () {
+    try {
+      const user = db.prepare(
+        'SELECT id, email, name, role, phone, created_at FROM users WHERE id = ?'
+      ).get(req.user.id);
+      if (!user) return res.status(404).json({ error: 'User not found' });
+      res.json({ user: user });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to load profile' });
+    }
+  });
 });
 
 module.exports = router;

@@ -18,19 +18,25 @@ function requireAuth(req, res, next) {
   }
   try {
     req.user = jwt.verify(token, JWT_SECRET);
-    next();
-  } catch {
+    return next();
+  } catch (e) {
     return res.status(401).json({ error: 'Invalid or expired token' });
   }
 }
 
-function requireRole(...roles) {
+function requireRole() {
+  var roles = Array.prototype.slice.call(arguments);
   return function roleGuard(req, res, next) {
-    if (!req.user || !roles.includes(req.user.role)) {
+    if (!req.user || roles.indexOf(req.user.role) === -1) {
       return res.status(403).json({ error: 'Forbidden' });
     }
-    next();
+    return next();
   };
 }
 
-module.exports = { signToken, requireAuth, requireRole, JWT_SECRET };
+module.exports = {
+  signToken: signToken,
+  requireAuth: requireAuth,
+  requireRole: requireRole,
+  JWT_SECRET: JWT_SECRET
+};
