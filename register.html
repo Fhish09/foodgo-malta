@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register — FoodGo Malta</title>
+  <title>Create account — FoodGo Malta</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -19,11 +19,11 @@
       min-height: 100vh; display: flex; flex-direction: column;
     }
     header {
-      padding: 16px 40px; border-bottom: 1px solid rgba(201,151,90,0.2);
+      padding: 16px 24px; border-bottom: 1px solid rgba(201,151,90,0.2);
       display: flex; align-items: center; justify-content: space-between;
     }
     .logo {
-      font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
+      font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
       display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text);
     }
     .logo span { color: var(--gold); }
@@ -35,19 +35,26 @@
     .back { font-size: 0.85rem; color: var(--text-body); text-decoration: none; }
     .back:hover { color: var(--gold); }
     main {
-      flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px;
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 32px 16px;
       background: radial-gradient(ellipse at 50% 0%, rgba(201,151,90,0.12) 0%, transparent 55%);
     }
     .card {
-      width: 100%; max-width: 440px; background: var(--bg-panel);
-      border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px;
+      width: 100%; max-width: 420px; background: var(--bg-panel);
+      border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.35);
     }
-    .eyebrow { font-family: 'Petit Formal Script', cursive; color: var(--gold); font-size: 1.15rem; margin-bottom: 8px; }
-    h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 8px; }
-    .sub { color: var(--text-body); font-size: 0.9rem; margin-bottom: 28px; }
-    .field { margin-bottom: 16px; }
-    .field label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+    .eyebrow {
+      font-family: 'Petit Formal Script', cursive; color: var(--gold);
+      font-size: 1.1rem; margin-bottom: 6px;
+    }
+    h1 { font-family: 'Playfair Display', serif; font-size: 1.75rem; margin-bottom: 8px; }
+    .sub { color: var(--text-body); font-size: 0.9rem; margin-bottom: 24px; }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: 0.75rem; color: var(--text-muted);
+      margin-bottom: 6px; font-weight: 500;
+    }
     .field input {
       width: 100%; padding: 12px 14px; background: var(--bg-card);
       border: 1px solid rgba(201,151,90,0.3); border-radius: 12px;
@@ -56,88 +63,109 @@
     .field input:focus { border-color: var(--gold); }
     .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .btn {
-      width: 100%; height: 48px; margin-top: 8px; border: none; border-radius: 999px;
+      width: 100%; height: 48px; margin-top: 10px; border: none; border-radius: 999px;
       background: var(--gold); color: #14100C; font-weight: 600; font-size: 0.9rem;
       cursor: pointer; font-family: inherit;
     }
     .btn:hover { background: var(--gold-light); }
-    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .error { color: #e07070; font-size: 0.82rem; margin-top: 12px; display: none; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .error { color: #e07070; font-size: 0.82rem; margin-top: 12px; display: none; text-align: center; }
     .error.show { display: block; }
     .foot { text-align: center; margin-top: 22px; font-size: 0.85rem; color: var(--text-body); }
-    .foot a { color: var(--gold); text-decoration: none; }
-    @media (max-width: 480px) { .row-2 { grid-template-columns: 1fr; } }
+    .foot a { color: var(--gold); text-decoration: none; font-weight: 500; }
+    @media (max-width: 480px) {
+      .row-2 { grid-template-columns: 1fr; }
+      .card { padding: 28px 20px; }
+    }
   </style>
 </head>
 <body>
   <header>
-    <a href="index.html" class="logo">
+    <a href="login.html" class="logo">
       <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg></span>
       Food<span>Go</span>
     </a>
-    <a href="login.html" class="back">\u2190 Sign in</a>
+    <a href="login.html" class="back">Sign in</a>
   </header>
   <main>
     <div class="card">
       <div class="eyebrow">Join FoodGo</div>
       <h1>Create account</h1>
-      <p class="sub">Order faster with saved details in Malta.</p>
-      <form id="regForm">
+      <p class="sub">Register to order delivery from kitchens across Malta.</p>
+      <form id="regForm" novalidate>
         <div class="field">
           <label for="name">Full name</label>
-          <input id="name" type="text" placeholder="John Vella" required />
+          <input id="name" type="text" placeholder="Full name" required autocomplete="name" />
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input id="email" type="email" placeholder="you@example.com" required />
+          <input id="email" type="email" placeholder="Email address" required autocomplete="email" />
         </div>
         <div class="row-2">
           <div class="field">
             <label for="password">Password</label>
-            <input id="password" type="password" placeholder="Min 6 characters" required minlength="6" />
+            <input id="password" type="password" placeholder="Min. 6 characters" required minlength="6" autocomplete="new-password" />
           </div>
           <div class="field">
             <label for="phone">Phone</label>
-            <input id="phone" type="tel" placeholder="+356 \u2026" />
+            <input id="phone" type="tel" placeholder="Mobile number" autocomplete="tel" />
           </div>
         </div>
         <button class="btn" type="submit" id="btn">Create account</button>
-        <p class="error" id="err"></p>
+        <p class="error" id="err" role="alert"></p>
       </form>
-      <p class="foot">Already registered? <a href="login.html">Sign in</a></p>
+      <p class="foot">Already have an account? <a href="login.html">Sign in</a></p>
     </div>
   </main>
   <script>
   (function () {
-    const API = (location.port === '8080') ? '/api' : 'http://localhost:4000/api';
+    if (localStorage.getItem('foodgo_token')) {
+      window.location.replace('index.html');
+      return;
+    }
+    var API = (location.port === '8080') ? '/api' : 'http://localhost:4000/api';
     document.getElementById('regForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      const err = document.getElementById('err');
+      var err = document.getElementById('err');
       err.classList.remove('show');
-      const btn = document.getElementById('btn');
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var password = document.getElementById('password').value;
+      var phone = document.getElementById('phone').value.trim();
+      if (!name || !email || !password) {
+        err.textContent = 'Please fill in name, email and password.';
+        err.classList.add('show');
+        return;
+      }
+      if (password.length < 6) {
+        err.textContent = 'Password must be at least 6 characters.';
+        err.classList.add('show');
+        return;
+      }
+      var btn = document.getElementById('btn');
       btn.disabled = true;
-      btn.textContent = 'Creating\u2026';
+      btn.textContent = 'Creating…';
       try {
-        const res = await fetch(API + '/auth/register', {
+        var res = await fetch(API + '/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: document.getElementById('name').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            password: document.getElementById('password').value,
-            phone: document.getElementById('phone').value.trim() || undefined,
+            name: name,
+            email: email,
+            password: password,
+            phone: phone || undefined,
             role: 'customer'
           })
         });
-        const data = await res.json().catch(function () { return {}; });
-        if (!res.ok) throw new Error(data.error || 'Registration failed');
+        var data = await res.json().catch(function () { return {}; });
+        if (!res.ok) throw new Error(data.error || 'Could not create account');
         if (data.token) {
           localStorage.setItem('foodgo_token', data.token);
           localStorage.setItem('foodgo_user', JSON.stringify(data.user || {}));
         }
         window.location.href = 'index.html';
       } catch (ex) {
-        err.textContent = ex.message || 'Could not register. Is the API running?';
+        err.textContent = ex.message || 'Registration failed. Try again.';
         err.classList.add('show');
         btn.disabled = false;
         btn.textContent = 'Create account';
