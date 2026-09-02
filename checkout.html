@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout — FoodGo Malta</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Petit+Formal+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -23,13 +21,13 @@
     h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; }
     a { color: inherit; text-decoration: none; }
     header {
-      position: sticky; top: 0; z-index: 50; padding: 16px 40px;
+      position: sticky; top: 0; z-index: 50; padding: 16px 24px;
       display: flex; align-items: center; justify-content: space-between;
       background: rgba(18,13,10,0.88); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-soft);
     }
     .logo {
-      font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
+      font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700;
       display: flex; align-items: center; gap: 8px;
     }
     .logo span { color: var(--gold); }
@@ -41,23 +39,23 @@
     .back-link { font-size: 0.85rem; color: var(--text-body); }
     .back-link:hover { color: var(--gold); }
     .wrap {
-      max-width: 960px; margin: 0 auto; padding: 40px 24px 64px;
-      display: grid; grid-template-columns: 1.2fr 0.9fr; gap: 28px; align-items: start;
+      max-width: 960px; margin: 0 auto; padding: 32px 16px 64px;
+      display: grid; grid-template-columns: 1.2fr 0.9fr; gap: 24px; align-items: start;
     }
     .eyebrow {
       font-family: 'Petit Formal Script', cursive; color: var(--gold);
-      font-size: 1.15rem; margin-bottom: 8px;
+      font-size: 1.1rem; margin-bottom: 8px;
     }
-    .page-title { font-size: 1.9rem; margin-bottom: 24px; }
+    .page-title { font-size: 1.7rem; margin-bottom: 20px; }
     .card {
       background: var(--bg-panel); border: 1px solid var(--border);
-      border-radius: 18px; padding: 24px;
+      border-radius: 18px; padding: 22px;
     }
     .card h3 {
-      font-size: 1.05rem; margin-bottom: 18px; padding-bottom: 12px;
+      font-size: 1.05rem; margin-bottom: 16px; padding-bottom: 12px;
       border-bottom: 1px solid var(--border-soft);
     }
-    .field { margin-bottom: 16px; }
+    .field { margin-bottom: 14px; }
     .field label {
       display: block; font-size: 0.75rem; font-weight: 500;
       color: var(--text-muted); margin-bottom: 6px;
@@ -69,9 +67,8 @@
       font-family: 'Inter', sans-serif; outline: none;
     }
     .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
-    .field input::placeholder, .field textarea::placeholder { color: var(--text-muted); }
-    .field textarea { min-height: 80px; resize: vertical; }
-    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field textarea { min-height: 72px; resize: vertical; }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .pay-grid { display: grid; gap: 10px; }
     .pay-option {
       display: flex; align-items: center; gap: 12px;
@@ -118,9 +115,8 @@
     }
     .secure-note svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
     @media (max-width: 800px) {
-      .wrap { grid-template-columns: 1fr; padding: 28px 16px 48px; }
+      .wrap { grid-template-columns: 1fr; }
       .row-2 { grid-template-columns: 1fr; }
-      header { padding: 14px 16px; }
     }
   </style>
 </head>
@@ -130,7 +126,7 @@
       <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="3"/></svg></span>
       Food<span>Go</span>
     </a>
-    <a href="menu.html" class="back-link">\u2190 Back to menu</a>
+    <a href="menu.html" class="back-link">Back to menu</a>
   </header>
 
   <div class="wrap" id="checkoutWrap">
@@ -142,28 +138,29 @@
         <div class="row-2">
           <div class="field">
             <label for="fullName">Full name</label>
-            <input id="fullName" name="fullName" type="text" placeholder="John Vella" required />
+            <input id="fullName" name="fullName" type="text" placeholder="Full name" required />
           </div>
           <div class="field">
             <label for="phone">Phone</label>
-            <input id="phone" name="phone" type="tel" placeholder="+356 7XXX XXXX" required />
+            <input id="phone" name="phone" type="tel" placeholder="Mobile number" required />
           </div>
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          <input id="email" name="email" type="email" placeholder="Email address" required />
         </div>
-        <h3 style="margin-top:28px">Delivery address</h3>
+        <h3 style="margin-top:24px">Delivery address</h3>
         <div class="field">
           <label for="street">Street address</label>
-          <input id="street" name="street" type="text" placeholder="12 Republic Street" required />
+          <input id="street" name="street" type="text" placeholder="Street and number" required />
         </div>
         <div class="row-2">
           <div class="field">
-            <label for="town">Town</label>
+            <label for="town">Town (sets delivery fee)</label>
             <select id="town" name="town" required>
               <option value="">Select town</option>
               <option>Valletta</option>
+              <option>Floriana</option>
               <option>Sliema</option>
               <option>St. Julian's</option>
               <option>Birkirkara</option>
@@ -192,7 +189,7 @@
           <label for="notes">Delivery notes (optional)</label>
           <textarea id="notes" name="notes" placeholder="Gate code, floor, leave at door…"></textarea>
         </div>
-        <h3 style="margin-top:28px">Payment method</h3>
+        <h3 style="margin-top:24px">Payment method</h3>
         <div class="pay-grid" id="payGrid">
           <label class="pay-option selected"><input type="radio" name="payment" value="card" checked /> <span>Card</span></label>
           <label class="pay-option"><input type="radio" name="payment" value="apple_pay" /> <span>Apple Pay</span></label>
@@ -215,154 +212,6 @@
     </aside>
   </div>
 
-  <script>
-  (function () {
-    const API = 'http://localhost:4000/api';
-    const SERVICE_RATE = 0.05;
-    let cart = JSON.parse(localStorage.getItem('foodgo_cart') || '[]');
-
-    function formatEUR(n) { return '\u20AC' + Number(n).toFixed(2); }
-
-    function calc() {
-      const subtotal = cart.reduce(function (s, i) { return s + i.unit_price * i.quantity; }, 0);
-      const delivery = cart.length ? 2.5 : 0;
-      const service = Math.round(subtotal * SERVICE_RATE * 100) / 100;
-      const total = Math.round((subtotal + delivery + service) * 100) / 100;
-      return { subtotal: subtotal, delivery: delivery, service: service, total: total };
-    }
-
-    function renderSummary() {
-      const wrap = document.getElementById('checkoutWrap');
-      if (!cart.length) {
-        wrap.innerHTML = '<div class="empty" style="grid-column:1/-1">' +
-          '<p>Your cart is empty.</p>' +
-          '<p style="margin-top:12px"><a href="menu.html">Explore today\'s menu</a></p></div>';
-        return;
-      }
-      document.getElementById('summaryItems').innerHTML = cart.map(function (c) {
-        return '<div class="summary-item">' +
-          '<div><div>' + c.quantity + '\u00D7 ' + c.name + '</div>' +
-          '<div class="muted">' + (c.restaurant_name || '') + '</div></div>' +
-          '<div>' + formatEUR(c.unit_price * c.quantity) + '</div></div>';
-      }).join('');
-      const t = calc();
-      document.getElementById('summaryTotals').innerHTML =
-        '<div class="total-row"><span>Subtotal</span><span>' + formatEUR(t.subtotal) + '</span></div>' +
-        '<div class="total-row"><span>Delivery</span><span>' + formatEUR(t.delivery) + '</span></div>' +
-        '<div class="total-row"><span>Service (5%)</span><span>' + formatEUR(t.service) + '</span></div>' +
-        '<div class="total-row grand"><span>Total</span><span>' + formatEUR(t.total) + '</span></div>';
-    }
-
-    document.getElementById('deliveryTime').addEventListener('change', function () {
-      document.getElementById('scheduleField').style.display =
-        this.value === 'scheduled' ? 'block' : 'none';
-    });
-
-    document.querySelectorAll('.pay-option').forEach(function (opt) {
-      opt.addEventListener('click', function () {
-        document.querySelectorAll('.pay-option').forEach(function (o) { o.classList.remove('selected'); });
-        opt.classList.add('selected');
-        opt.querySelector('input').checked = true;
-      });
-    });
-
-    document.getElementById('checkoutForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const err = document.getElementById('formError');
-      err.classList.remove('show');
-      const btn = document.getElementById('placeBtn');
-
-      const fullName = document.getElementById('fullName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const street = document.getElementById('street').value.trim();
-      const town = document.getElementById('town').value;
-      const deliveryTime = document.getElementById('deliveryTime').value;
-      const scheduleAt = document.getElementById('scheduleAt').value;
-      const notes = document.getElementById('notes').value.trim();
-      const payment = (document.querySelector('input[name="payment"]:checked') || {}).value || 'card';
-
-      if (!fullName || !email || !phone || !street || !town) {
-        err.textContent = 'Please fill in all required fields.';
-        err.classList.add('show');
-        return;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        err.textContent = 'Please enter a valid email address.';
-        err.classList.add('show');
-        return;
-      }
-      if (!cart.length) {
-        err.textContent = 'Your cart is empty.';
-        err.classList.add('show');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = 'Placing order\u2026';
-      const t = calc();
-      const orderRef = 'FG-' + Date.now().toString(36).toUpperCase();
-      let apiOrderId = null;
-
-      try {
-        const restaurantId = cart[0].restaurant_id;
-        const sameRest = cart.every(function (c) { return c.restaurant_id === restaurantId; });
-        if (sameRest && restaurantId) {
-          const loginRes = await fetch(API + '/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: 'customer@example.com', password: 'customer123' })
-          });
-          if (loginRes.ok) {
-            const loginData = await loginRes.json();
-            const orderRes = await fetch(API + '/orders', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + loginData.token
-              },
-              body: JSON.stringify({
-                restaurant_id: restaurantId,
-                items: cart.map(function (c) {
-                  return { menu_item_id: c.menu_item_id, quantity: c.quantity };
-                }),
-                delivery_town: town,
-                delivery_street: street,
-                delivery_time: deliveryTime === 'scheduled' && scheduleAt ? scheduleAt : 'ASAP',
-                payment_method: payment,
-                notes: notes || ('Guest: ' + fullName + ' · ' + phone)
-              })
-            });
-            if (orderRes.ok) {
-              const od = await orderRes.json();
-              apiOrderId = od.order && od.order.id;
-            }
-          }
-        }
-      } catch (apiErr) {
-        console.warn('API order skipped', apiErr);
-      }
-
-      const confirmation = {
-        orderRef: apiOrderId || orderRef,
-        fullName: fullName,
-        email: email,
-        phone: phone,
-        street: street,
-        town: town,
-        deliveryTime: deliveryTime === 'scheduled' && scheduleAt ? scheduleAt : 'ASAP',
-        payment: payment,
-        items: cart.slice(),
-        totals: t,
-        createdAt: new Date().toISOString()
-      };
-      sessionStorage.setItem('foodgo_last_order', JSON.stringify(confirmation));
-      localStorage.removeItem('foodgo_cart');
-      window.location.href = 'thank-you.html';
-    });
-
-    renderSummary();
-  })();
-  </script>
+  <script src="checkout.js"></script>
 </body>
 </html>
