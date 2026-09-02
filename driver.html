@@ -1,1 +1,271 @@
-PLACEHOLDER
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Driver — FoodGo Malta</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0c0f; --panel: #10141a; --card: #151b24;
+      --line: rgba(120,160,200,0.14); --text: #e8eef6; --muted: #7d8fa3;
+      --cyan: #3dd0e8; --green: #3dd68c; --red: #f05555; --amber: #f0b429;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: var(--bg); color: var(--text); min-height: 100vh;
+      background-image: radial-gradient(ellipse at 20% 0%, rgba(61,208,232,0.07), transparent 50%);
+    }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--panel);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .brand { font-weight: 700; font-size: 0.95rem; }
+    .brand span { color: var(--cyan); }
+    .who { font-size: 0.78rem; color: var(--muted); text-align: right; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 18px 16px 48px; display: grid; gap: 16px; }
+    @media (min-width: 800px) { .wrap { grid-template-columns: 1.2fr 0.9fr; align-items: start; } }
+    h2 { font-size: 1rem; margin-bottom: 12px; }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px;
+    }
+    .job {
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 10px;
+      background: var(--panel);
+    }
+    .job.done { opacity: 0.7; }
+    .job-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .mono { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; }
+    .addr { font-size: 0.9rem; margin: 6px 0; line-height: 1.4; }
+    .meta { font-size: 0.78rem; color: var(--muted); }
+    .light { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; }
+    .light.green {
+      background: var(--green);
+      box-shadow: 0 0 10px 3px rgba(61,214,140,0.75), 0 0 22px rgba(61,214,140,0.35);
+      animation: pulse 2s infinite;
+    }
+    .light.red {
+      background: var(--red);
+      box-shadow: 0 0 10px 3px rgba(240,85,85,0.7), 0 0 20px rgba(240,85,85,0.3);
+      animation: pulse 2s infinite;
+    }
+    .light.amber {
+      background: var(--amber);
+      box-shadow: 0 0 10px 3px rgba(240,180,41,0.65);
+    }
+    @keyframes pulse { 50% { transform: scale(1.12); opacity: 0.85; } }
+    .btn {
+      height: 34px; padding: 0 12px; border-radius: 8px; border: none;
+      font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .btn-cyan { background: var(--cyan); color: #041018; }
+    .btn-green { background: var(--green); color: #041810; }
+    .btn-ghost { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .chat-log {
+      height: 280px; overflow-y: auto; background: var(--panel);
+      border: 1px solid var(--line); border-radius: 10px; padding: 10px; margin-bottom: 10px;
+    }
+    .msg { margin-bottom: 10px; font-size: 0.84rem; }
+    .msg .from { font-size: 0.7rem; color: var(--muted); margin-bottom: 2px; }
+    .msg.me .from { color: var(--cyan); }
+    .msg .bubble {
+      display: inline-block; padding: 8px 11px; border-radius: 10px;
+      background: rgba(255,255,255,0.05); max-width: 95%;
+    }
+    .msg.me .bubble { background: rgba(61,208,232,0.15); }
+    .chat-form { display: flex; gap: 8px; }
+    .chat-form input {
+      flex: 1; height: 38px; border-radius: 8px; border: 1px solid var(--line);
+      background: var(--panel); color: var(--text); padding: 0 12px; font-family: inherit;
+    }
+    .empty { color: var(--muted); text-align: center; padding: 24px; font-size: 0.88rem; }
+    .toast {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(60px);
+      background: var(--card); border: 1px solid var(--cyan); padding: 10px 16px;
+      border-radius: 8px; font-size: 0.82rem; opacity: 0; transition: 0.25s; z-index: 50;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Food<span>Go</span> Driver</div>
+    <div class="who"><div id="driverName">—</div><div id="driverMeta"></div></div>
+  </header>
+  <div class="wrap">
+    <section class="card">
+      <h2>My deliveries</h2>
+      <div id="jobs">Loading…</div>
+    </section>
+    <section class="card">
+      <h2>Chat with admin <span class="mono" id="chatRoomLabel">(ops)</span></h2>
+      <div class="chat-log" id="chatLog"></div>
+      <form class="chat-form" id="chatForm">
+        <input id="chatInput" placeholder="Message admin…" autocomplete="off" />
+        <button class="btn btn-cyan" type="submit">Send</button>
+      </form>
+      <p class="meta" style="margin-top:8px">Select a job to chat about that delivery, or use ops chat.</p>
+      <button class="btn btn-ghost" type="button" id="btnLogout" style="margin-top:12px">Sign out</button>
+    </section>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" crossorigin="anonymous"></script>
+  <script>
+  (function () {
+    const API = (location.port === '8080')
+      ? '/api'
+      : (location.protocol + '//' + (location.hostname || 'localhost') + ':4000/api');
+    const token = localStorage.getItem('foodgo_token');
+    let user = null;
+    try { user = JSON.parse(localStorage.getItem('foodgo_user') || 'null'); } catch (_) {}
+    if (!token || !user || (user.role !== 'driver' && user.role !== 'admin')) {
+      window.location.replace('login.html');
+      return;
+    }
+    let activeOrderId = null;
+    let jobs = [];
+    function headers() {
+      return { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token };
+    }
+    async function api(path, opts) {
+      const res = await fetch(API + path, Object.assign({ headers: headers() }, opts || {}));
+      const data = await res.json().catch(function () { return {}; });
+      if (!res.ok) throw new Error(data.error || 'Request failed');
+      return data;
+    }
+    function toast(m) {
+      const el = document.getElementById('toast');
+      el.textContent = m; el.classList.add('show');
+      setTimeout(function () { el.classList.remove('show'); }, 2200);
+    }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+    document.getElementById('btnLogout').onclick = function () {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    };
+    function lightClass(status) {
+      if (status === 'delivered') return 'green';
+      if (status === 'out_for_delivery' || status === 'preparing' || status === 'confirmed') return 'amber';
+      return 'red';
+    }
+    function renderJobs() {
+      const el = document.getElementById('jobs');
+      if (!jobs.length) {
+        el.innerHTML = '<div class="empty">No jobs assigned yet. Admin will send addresses here.</div>';
+        return;
+      }
+      el.innerHTML = jobs.map(function (j) {
+        const delivered = j.status === 'delivered';
+        return '<div class="job' + (delivered ? ' done' : '') + '">' +
+          '<div class="job-top">' +
+            '<span class="mono">#' + j.id.slice(0, 8) + '</span>' +
+            '<span class="light ' + lightClass(j.status) + '" title="' + j.status + '"></span>' +
+          '</div>' +
+          '<div><strong>' + esc(j.restaurant_name) + '</strong> → customer</div>' +
+          '<div class="addr">📍 ' + esc(j.delivery_street || '') + ', ' + esc(j.delivery_town || '') + '</div>' +
+          '<div class="meta">' + esc(j.customer_name) + (j.customer_phone ? ' · ' + esc(j.customer_phone) : '') +
+            ' · €' + Number(j.total).toFixed(2) + ' · ' + j.status.replace(/_/g, ' ') + '</div>' +
+          '<div class="actions">' +
+            (!delivered ? '<button class="btn btn-cyan" data-status="out_for_delivery" data-id="' + j.id + '">On the way</button>' : '') +
+            (!delivered ? '<button class="btn btn-green" data-status="delivered" data-id="' + j.id + '">Mark delivered</button>' : '<span class="meta">Delivered ✓</span>') +
+            '<button class="btn btn-ghost" data-chat="' + j.id + '">Chat about this</button>' +
+          '</div></div>';
+      }).join('');
+      el.querySelectorAll('[data-status]').forEach(function (btn) {
+        btn.onclick = async function () {
+          try {
+            await api('/driver/jobs/' + btn.dataset.id + '/status', {
+              method: 'PATCH',
+              body: JSON.stringify({ status: btn.dataset.status })
+            });
+            toast(btn.dataset.status === 'delivered' ? 'Marked delivered — light is green' : 'Out for delivery');
+            loadJobs();
+          } catch (e) { toast(e.message); }
+        };
+      });
+      el.querySelectorAll('[data-chat]').forEach(function (btn) {
+        btn.onclick = function () {
+          activeOrderId = btn.dataset.chat;
+          document.getElementById('chatRoomLabel').textContent = '(order #' + activeOrderId.slice(0, 8) + ')';
+          loadChat();
+        };
+      });
+    }
+    async function loadJobs() {
+      try {
+        const data = await api('/driver/jobs');
+        jobs = data.jobs || [];
+        if (data.driver) {
+          document.getElementById('driverName').textContent = data.driver.name || user.name;
+          document.getElementById('driverMeta').textContent =
+            (data.driver.vehicle || '') + ' · ' + (data.driver.status || '') + ' · ' + (user.email || '');
+        } else {
+          document.getElementById('driverName').textContent = user.name;
+        }
+        renderJobs();
+      } catch (e) {
+        document.getElementById('jobs').innerHTML = '<div class="empty">' + esc(e.message) + '</div>';
+      }
+    }
+    function renderChat(messages) {
+      const log = document.getElementById('chatLog');
+      if (!messages.length) {
+        log.innerHTML = '<div class="empty">No messages yet</div>';
+        return;
+      }
+      log.innerHTML = messages.map(function (m) {
+        const me = m.sender_id === user.id;
+        return '<div class="msg' + (me ? ' me' : '') + '"><div class="from">' +
+          esc(m.sender_name || m.sender_role) + ' · ' + (m.created_at || '').slice(11, 16) +
+          '</div><div class="bubble">' + esc(m.body) + '</div></div>';
+      }).join('');
+      log.scrollTop = log.scrollHeight;
+    }
+    async function loadChat() {
+      try {
+        const path = activeOrderId ? ('/chat/order/' + activeOrderId) : '/chat/ops';
+        const data = await api(path);
+        renderChat(data.messages || []);
+      } catch (e) {
+        document.getElementById('chatLog').innerHTML = '<div class="empty">' + esc(e.message) + '</div>';
+      }
+    }
+    document.getElementById('chatForm').onsubmit = async function (e) {
+      e.preventDefault();
+      const input = document.getElementById('chatInput');
+      const body = input.value.trim();
+      if (!body) return;
+      try {
+        await api('/chat', {
+          method: 'POST',
+          body: JSON.stringify({ order_id: activeOrderId, body: body })
+        });
+        input.value = '';
+        loadChat();
+      } catch (err) { toast(err.message); }
+    };
+    if (typeof io !== 'undefined') {
+      var socketUrl = (location.port === '8080')
+        ? location.origin
+        : (location.protocol + '//' + (location.hostname || 'localhost') + ':4000');
+      var socket = io(socketUrl, { path: '/socket.io', transports: ['websocket', 'polling'] });
+      socket.on('connect', function () { socket.emit('join', 'public'); });
+      socket.on('order:updated', function () { loadJobs(); });
+      socket.on('chat:message', function (payload) {
+        if (!payload || !payload.message) return;
+        var m = payload.message;
+        if (activeOrderId && m.order_id === activeOrderId) loadChat();
+        if (!activeOrderId && !m.order_id) loadChat();
+      });
+    }
+    loadJobs();
+    loadChat();
+  })();
+  </script>
+</body>
+</html>
