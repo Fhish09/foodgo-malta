@@ -20,9 +20,9 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="menu.html">Menu</a></li>
-      <li><a href="#restaurants">About</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#restaurants">Locations</a></li>
-      <li><a href="login.html">Login</a></li>
+      <li><a href="#" id="navAuth">Account</a></li>
     </ul>
     <div class="header-right">
       <a href="checkout.html" class="cart-btn" id="cartBtn" title="Cart" aria-label="Cart" style="text-decoration:none">
@@ -61,12 +61,12 @@
     </div>
     <div class="hero-right">
       <div class="hero-product">
-        <img src="hero.jpg" alt="Signature pizza" />
+        <img src="hero.jpg" alt="Signature dish" />
       </div>
     </div>
   </section>
 
-  <section class="about">
+  <section class="about" id="about">
     <div class="about-visual">
       <img src="about-chef.jpg" alt="Chef" />
     </div>
@@ -136,12 +136,7 @@
         <p>Get exclusive offers and new restaurant drops delivered to your inbox.</p>
         <div class="newsletter">
           <input type="email" placeholder="Your email" />
-          <button type="button"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        </div>
-        <div class="social-row">
-          <button class="social-btn" type="button"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg></button>
-          <button class="social-btn" type="button"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></button>
-          <button class="social-btn" type="button"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></button>
+          <button type="button" aria-label="Subscribe"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
       <div class="footer-col">
@@ -149,23 +144,20 @@
         <ul class="footer-links">
           <li><a href="menu.html">Menu</a></li>
           <li><a href="menu.html">Today's Menu</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="register.html">Register</a></li>
+          <li><a href="checkout.html">Checkout</a></li>
+          <li><a href="#" id="footerLogout">Sign out</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h3>Customer Care</h3>
         <ul class="footer-links">
-          <li><a href="#">Help Centre</a></li>
-          <li><a href="#">Track Order</a></li>
-          <li><a href="#">Refunds</a></li>
-          <li><a href="#">Contact Support</a></li>
+          <li><a href="menu.html">Place an order</a></li>
+          <li><a href="checkout.html">Your cart</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h3>Contact Us</h3>
-        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>+356 2123 4567</span></div>
-        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>hello@foodgo.mt</span></div>
+        <h3>Contact</h3>
+        <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>support@foodgo.mt</span></div>
         <div class="contact-row"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Valletta, Malta</span></div>
       </div>
     </div>
