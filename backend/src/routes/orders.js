@@ -1,163 +1,167 @@
 const express = require('express');
 const { v4: uuid } = require('uuid');
 const db = require('../db/schema');
-const { authRequired, requireRole } = require('../middleware/auth');
+const auth = require('../middleware/auth');
+const realtime = require('../realtime');
 
 const router = express.Router();
 
-const SERVICE_CHARGE_RATE = 0.05; // 5%
+const TOWN_FEES = {
+  Valletta: 1.5,
+  Floriana: 1.5,
+  Sliema: 2.0,
+  "St. Julian's": 2.5,
+  Gzira: 2.0,
+  Msida: 2.0,
+  Birkirkara: 2.5,
+  Mosta: 2.5,
+  Qormi: 2.5,
+  Other: 3.5
+};
 
-// POST /api/orders  (customer)
-router.post('/', authRequired, requireRole('customer'), (req, res) => {
-  const {
-    restaurant_id,
-    items,
-    delivery_town,
-    delivery_street,
-    delivery_time = 'ASAP',
-    payment_method = 'card',
-    notes,
-  } = req.body || {};
+function feeForTown(town) {
+  if (!town) return TOWN_FEES.Other;
+  var key = Object.keys(TOWN_FEES).find(function (k) {
+    return k.toLowerCase() === String(town).toLowerCase();
+  });
+  return key ? TOWN_FEES[key] : TOWN_FEES.Other;
+}
 
-  if (!restaurant_id || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ error: 'restaurant_id and items are required' });
-  }
-
-  const rest = db.prepare('SELECT * FROM restaurants WHERE id = ? AND is_active = 1').get(restaurant_id);
-  if (!rest) return res.status(404).json({ error: 'Restaurant not found' });
-
-  let subtotal = 0;
-  const resolved = [];
-  for (const it of items) {
-    const menu = db.prepare('SELECT * FROM menu_items WHERE id = ? AND restaurant_id = ?').get(it.menu_item_id, restaurant_id);
-    if (!menu || !menu.is_available) {
-      return res.status(400).json({ error: `Invalid menu item: ${it.menu_item_id}` });
-    }
-    const qty = Math.max(1, parseInt(it.quantity, 10) || 1);
-    subtotal += menu.price * qty;
-    resolved.push({
-      menu_item_id: menu.id,
-      name: menu.name,
-      unit_price: menu.price,
-      quantity: qty,
-      customizations: it.customizations ? JSON.stringify(it.customizations) : null,
+function withAuth(handler) {
+  return function (req, res) {
+    auth.requireAuth(req, res, function () {
+      handler(req, res);
     });
-  }
+  };
+}
 
-  const delivery_fee = rest.delivery_fee;
-  const service_charge = Math.round(subtotal * SERVICE_CHARGE_RATE * 100) / 100;
-  const total = Math.round((subtotal + delivery_fee + service_charge) * 100) / 100;
-  const orderId = uuid();
-
-  const insertOrder = db.prepare(`
-    INSERT INTO orders (
-      id, customer_id, restaurant_id, status, subtotal, delivery_fee, service_charge, total,
-      delivery_town, delivery_street, delivery_time, payment_method, notes
-    ) VALUES (?, ?, ?, 'placed', ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  const insertItem = db.prepare(`
-    INSERT INTO order_items (id, order_id, menu_item_id, name, unit_price, quantity, customizations)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `);
-
-  db.exec('BEGIN');
+router.post('/', withAuth(function (req, res) {
   try {
-    insertOrder.run(
-      orderId,
-      req.user.id,
-      restaurant_id,
-      subtotal,
-      delivery_fee,
-      service_charge,
-      total,
-      delivery_town || rest.town,
-      delivery_street || null,
-      delivery_time,
-      payment_method,
-      notes || null
+    var body = req.body || {};
+    var restaurant_id = body.restaurant_id;
+    var items = body.items;
+    var delivery_town = body.delivery_town;
+    var delivery_street = body.delivery_street;
+    var delivery_notes = body.delivery_notes;
+    var payment_method = body.payment_method;
+
+    if (!restaurant_id || !Array.isArray(items) || !items.length) {
+      return res.status(400).json({ error: 'Restaurant and items are required' });
+    }
+    if (!delivery_street || !delivery_town) {
+      return res.status(400).json({ error: 'Delivery address is required' });
+    }
+
+    var rest = db.prepare('SELECT id FROM restaurants WHERE id = ?').get(restaurant_id);
+    if (!rest) return res.status(404).json({ error: 'Restaurant not found' });
+
+    var subtotal = 0;
+    var normalized = items.map(function (it) {
+      var qty = Math.max(1, parseInt(it.quantity, 10) || 1);
+      var price = Number(it.unit_price);
+      if (!it.name || isNaN(price)) throw new Error('Invalid item');
+      subtotal += price * qty;
+      return {
+        id: uuid(),
+        menu_item_id: it.menu_item_id || null,
+        name: String(it.name),
+        unit_price: price,
+        quantity: qty
+      };
+    });
+
+    var delivery_fee = feeForTown(delivery_town);
+    if (subtotal >= 25) delivery_fee = 0;
+    var total = Math.round((subtotal + delivery_fee) * 100) / 100;
+
+    var orderId = uuid();
+    var insertOrder = db.prepare(
+      'INSERT INTO orders (id, user_id, restaurant_id, status, subtotal, delivery_fee, total, delivery_town, delivery_street, delivery_notes, payment_method) VALUES (?, ?, ?, \'pending\', ?, ?, ?, ?, ?, ?, ?)'
     );
-    for (const it of resolved) {
-      insertItem.run(uuid(), orderId, it.menu_item_id, it.name, it.unit_price, it.quantity, it.customizations);
-    }
-    db.exec('COMMIT');
-  } catch (e) {
-    db.exec('ROLLBACK');
-    throw e;
+    var insertItem = db.prepare(
+      'INSERT INTO order_items (id, order_id, menu_item_id, name, unit_price, quantity) VALUES (?, ?, ?, ?, ?, ?)'
+    );
+
+    var runTx = db.transaction(function () {
+      insertOrder.run(
+        orderId,
+        req.user.id,
+        restaurant_id,
+        subtotal,
+        delivery_fee,
+        total,
+        delivery_town,
+        delivery_street,
+        delivery_notes || null,
+        payment_method || 'card'
+      );
+      normalized.forEach(function (it) {
+        insertItem.run(it.id, orderId, it.menu_item_id, it.name, it.unit_price, it.quantity);
+      });
+    });
+    runTx();
+
+    var order = db.prepare('SELECT * FROM orders WHERE id = ?').get(orderId);
+    var orderItems = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(orderId);
+    try {
+      realtime.emit('order:created', { order: order, items: orderItems });
+    } catch (e) {}
+    res.status(201).json({ order: order, items: orderItems });
+  } catch (err) {
+    console.error('Create order error:', err);
+    res.status(500).json({ error: err.message || 'Failed to create order' });
   }
+}));
 
-  const order = db.prepare('SELECT * FROM orders WHERE id = ?').get(orderId);
-  const orderItems = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(orderId);
-  res.status(201).json({ order, items: orderItems });
-});
-
-// GET /api/orders/mine  (customer)
-router.get('/mine', authRequired, requireRole('customer'), (req, res) => {
-  const orders = db.prepare(
-    `SELECT o.*, r.name as restaurant_name
-     FROM orders o JOIN restaurants r ON r.id = o.restaurant_id
-     WHERE o.customer_id = ? ORDER BY o.created_at DESC`
-  ).all(req.user.id);
-  res.json({ orders });
-});
-
-// GET /api/orders/restaurant/incoming  (restaurant owner) — must be before /:id
-router.get('/restaurant/incoming', authRequired, requireRole('restaurant'), (req, res) => {
-  const orders = db.prepare(
-    `SELECT o.*, u.name as customer_name
-     FROM orders o
-     JOIN restaurants r ON r.id = o.restaurant_id
-     JOIN users u ON u.id = o.customer_id
-     WHERE r.owner_id = ?
-     ORDER BY o.created_at DESC`
-  ).all(req.user.id);
-  res.json({ orders });
-});
-
-// GET /api/orders/:id
-router.get('/:id', authRequired, (req, res) => {
-  const order = db.prepare(
-    `SELECT o.*, r.name as restaurant_name
-     FROM orders o JOIN restaurants r ON r.id = o.restaurant_id
-     WHERE o.id = ?`
-  ).get(req.params.id);
-  if (!order) return res.status(404).json({ error: 'Order not found' });
-
-  if (req.user.role === 'customer' && order.customer_id !== req.user.id) {
-    return res.status(403).json({ error: 'Forbidden' });
+router.get('/mine', withAuth(function (req, res) {
+  try {
+    var orders = db.prepare(
+      'SELECT o.*, r.name AS restaurant_name FROM orders o JOIN restaurants r ON r.id = o.restaurant_id WHERE o.user_id = ? ORDER BY o.created_at DESC LIMIT 50'
+    ).all(req.user.id);
+    res.json({ orders: orders });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to load orders' });
   }
-  if (req.user.role === 'restaurant') {
-    const rest = db.prepare('SELECT owner_id FROM restaurants WHERE id = ?').get(order.restaurant_id);
-    if (!rest || rest.owner_id !== req.user.id) {
+}));
+
+router.get('/:id', withAuth(function (req, res) {
+  try {
+    var order = db.prepare(
+      'SELECT o.*, r.name AS restaurant_name FROM orders o JOIN restaurants r ON r.id = o.restaurant_id WHERE o.id = ?'
+    ).get(req.params.id);
+    if (!order) return res.status(404).json({ error: 'Order not found' });
+    if (order.user_id !== req.user.id && req.user.role !== 'admin') {
       return res.status(403).json({ error: 'Forbidden' });
     }
+    var items = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(order.id);
+    res.json({ order: order, items: items });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to load order' });
   }
+}));
 
-  const items = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(order.id);
-  res.json({ order, items });
-});
-
-// PATCH /api/orders/:id/status  (restaurant or admin)
-router.patch('/:id/status', authRequired, requireRole('restaurant', 'admin'), (req, res) => {
-  const { status } = req.body || {};
-  const allowed = ['accepted', 'rejected', 'courier_assigned', 'on_the_way', 'delivered', 'cancelled'];
-  if (!allowed.includes(status)) {
-    return res.status(400).json({ error: `status must be one of: ${allowed.join(', ')}` });
-  }
-
-  const order = db.prepare('SELECT * FROM orders WHERE id = ?').get(req.params.id);
-  if (!order) return res.status(404).json({ error: 'Order not found' });
-
-  if (req.user.role === 'restaurant') {
-    const rest = db.prepare('SELECT owner_id FROM restaurants WHERE id = ?').get(order.restaurant_id);
-    if (!rest || rest.owner_id !== req.user.id) {
+router.post('/:id/tip', withAuth(function (req, res) {
+  try {
+    var order = db.prepare('SELECT * FROM orders WHERE id = ?').get(req.params.id);
+    if (!order) return res.status(404).json({ error: 'Order not found' });
+    if (order.user_id !== req.user.id && req.user.role !== 'admin') {
       return res.status(403).json({ error: 'Forbidden' });
     }
+    var body = req.body || {};
+    var tip_driver = Math.max(0, Number(body.tip_driver) || 0);
+    var tip_company = Math.max(0, Number(body.tip_company) || 0);
+    db.prepare("UPDATE orders SET tip_driver = ?, tip_company = ?, updated_at = datetime('now') WHERE id = ?").run(tip_driver, tip_company, order.id);
+    var updated = db.prepare('SELECT * FROM orders WHERE id = ?').get(order.id);
+    try {
+      realtime.emit('order:updated', { action: 'tip', order: updated });
+    } catch (e) {}
+    res.json({ order: updated });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to save tip' });
   }
-
-  db.prepare(`UPDATE orders SET status = ?, updated_at = datetime('now') WHERE id = ?`).run(status, order.id);
-  const updated = db.prepare('SELECT * FROM orders WHERE id = ?').get(order.id);
-  res.json({ order: updated });
-});
+}));
 
 module.exports = router;
